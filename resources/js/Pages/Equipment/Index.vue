@@ -43,13 +43,12 @@ watch(search, value => {
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Berendezések</h2>
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight"><i class="fa-solid fa-elevator mr-1.5"></i>Berendezések</h2>
         </template>
 
         <div class="py-6">
             <div class=" mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
-                    <h2>Berendezések</h2>
                     <div>
                         <div class="flex justify-between items-center mb-3">
                             <spant>text</spant>

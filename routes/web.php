@@ -47,8 +47,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/equipment', [EquipmentController::class, 'index'])->name('equipment.index');
 
-    Route::get('/error', [ErrorController::class,'index'])->name('error.index');
-    Route::post('/error', [ErrorController::class,'store'])->name('error.store');
+
+    Route::resource('error', ErrorController::class);
 });
 
 require __DIR__.'/auth.php';

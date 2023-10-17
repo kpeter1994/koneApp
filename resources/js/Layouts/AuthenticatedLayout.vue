@@ -32,10 +32,12 @@ const showingNavigationDropdown = ref(false);
                                     Vezérlőpult
                                 </NavLink>
                                 <NavLink :href="route('equipment.index')" :active="route().current('equipment.index')">
+                                    <i class="fa-solid fa-elevator mr-1.5"></i>
                                     Berendezések
                                 </NavLink>
                                 <NavLink :href="route('error.index')" :active="route().current('error.index')">
-                                    Hiba bejelentések
+                                    <i class="fa-solid fa-toolbox mr-1.5"></i>
+                                    Hibabejenetések
                                 </NavLink>
                                 <NavLink :href="route('workers.index')" :active="route().current('workers.index')">
                                     Karbantartók

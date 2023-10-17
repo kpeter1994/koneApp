@@ -50,7 +50,7 @@ class ErrorController extends Controller
 
         $error->save();
 
-        return redirect()->route('equipment.index')->with('success', 'Hiba sikeresen létrehozva!');
+        return redirect()->route('error.index')->with('success', 'Hiba sikeresen létrehozva!');
     }
 
     /**
@@ -64,9 +64,9 @@ class ErrorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Error $error)
     {
-        //
+        return Inertia::render('Error/Edit', compact('error'));
     }
 
     /**
@@ -74,7 +74,7 @@ class ErrorController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
     }
 
     /**
@@ -82,6 +82,7 @@ class ErrorController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+
+
     }
 }
