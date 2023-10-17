@@ -1,0 +1,54 @@
+<?php
+
+use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+use App\Http\Controllers\KoneWorkerController;
+use App\Http\Controllers\WorkOrderController;
+use App\Http\Controllers\EquipmentController;
+use App\Http\Controllers\ErrorController;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/', function () {
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+});
+
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/kone-workers', [KoneWorkerController::class, 'index'])->name('workers.index');
+
+    Route::post('/work-order', [WorkOrderController::class,'store'])->name('order.store');
+    Route::get('/work-order', [WorkOrderController::class,'index'])->name('order.index');
+
+    Route::get('/equipment', [EquipmentController::class, 'index'])->name('equipment.index');
+
+    Route::get('/error', [ErrorController::class,'index'])->name('error.index');
+    Route::post('/error', [ErrorController::class,'store'])->name('error.store');
+});
+
+require __DIR__.'/auth.php';
