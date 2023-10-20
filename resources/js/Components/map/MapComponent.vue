@@ -50,17 +50,28 @@ onClickOutside(target, close)
 </script>
 
 <template>
-    <button @click="mapVisible = true" class="w-8 h-8 flex justify-center items-center bg-blue-50 rounded text-blue-900">
+    <button @click="mapVisible = true"
+            class="w-8 h-8 flex justify-center items-center bg-blue-50 rounded text-blue-900">
         <i class="fa-solid fa-map"></i>
     </button>
-
-    <div  v-if="mapVisible" class="fixed top-0 left-0 bg-gray-900 w-full h-screen z-40 flex justify-center items-center bg-opacity-25 backdrop-blur p-3">
-        <div ref="target"  id="map" class="border border-gray-900 w-full xl:w-[1200px] h-[800px]"></div>
-    </div>
+    <transition name="fade">
+        <div v-if="mapVisible"
+             class="fixed top-0 left-0 bg-gray-900 w-full h-screen z-40 flex justify-center items-center bg-opacity-25 backdrop-blur p-3">
+            <div ref="target" id="map" class="border border-gray-900 w-full xl:w-[1200px] h-[800px]"></div>
+        </div>
+    </transition>
 
 
 </template>
 
 <style scoped>
-
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 0.1s;
+}
+.fade-enter-from, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+    opacity: 0;
+}
+.fade-enter-to, .fade-leave-from /* .fade-enter-active in <2.1.8 */ {
+    opacity: 1;
+}
 </style>

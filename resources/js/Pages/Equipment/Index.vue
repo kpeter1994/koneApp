@@ -5,6 +5,7 @@ import {ref, watch} from "vue";
 import ErrorForm from "@/Components/partials/ErrorForm.vue";
 import {onClickOutside} from "@vueuse/core";
 
+
 const props = defineProps({
     equipments: Object
 });

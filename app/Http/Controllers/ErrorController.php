@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Error;
@@ -86,5 +87,18 @@ class ErrorController extends Controller
     {
         $error->delete();
         return redirect()->route('error.index')->with('success', 'Hiba sikeresen törölve!');
+    }
+
+    public function getCurrentErrorsGroupByWorkers(Request $request){
+        $today = Carbon::today();
+
+        $errors = Error::with('equipment')
+            ->where('created_at' , '>=', $today)
+            ->get();
+
+        $errorsGroupByWorkers = $errors->groupBy('troubleshooter');
+
+        return response()->json($errorsGroupByWorkers);
+
     }
 }
