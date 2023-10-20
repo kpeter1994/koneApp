@@ -4,11 +4,15 @@ import {Head} from '@inertiajs/vue3';
 import ErrorForm from "@/Components/partials/ErrorForm.vue";
 import {formatDate, formatTime} from "@/utils.js";
 import NavLink from "@/Components/NavLink.vue";
+import {defineProps, ref} from "vue";
 
 
 const props = defineProps({
-    errors: Object
+    errors: Object,
+    flash: Object
 });
+
+const showMessages = ref(true);
 
 console.log(props.errors)
 </script>
@@ -18,16 +22,21 @@ console.log(props.errors)
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-yellow-500 text-xl  dark:text-gray-200 leading-tight"><i
+            <h2 class="font-semibold text-yellow-500 text-xl  dark:text-gray-200 leading-tight transition-all"><i
                 class="fa-solid fa-toolbox mr-1.5"></i>Hibabejenetések</h2>
         </template>
+
 
         <div class="py-6">
             <div class=" mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
-                    <div>
-                        <div class="flex justify-between items-center mb-3">
-                            <spant>text</spant>
+                    <div class="relative">
+                        <div v-if="props.flash.success && showMessages" class="absolute bg-green-100 p-3 gap-6 flex rounded items-center">
+                            <p><i class="fa-solid fa-circle-info mr-1.5"></i>{{props.flash.success}}</p>
+                            <i @click="showMessages = false" class="fa-solid fa-xmark cursor-pointer"></i>
+                        </div>
+                        <div class="flex justify-end items-center mb-3 text-green-900">
+
                             <div class="relative flex items-center">
                                 <i class="fa-solid fa-magnifying-glass absolute ml-3 pointer-events-none z-30"></i>
                                 <input

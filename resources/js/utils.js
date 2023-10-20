@@ -1,3 +1,4 @@
+import axios from "axios";
 
 
 export function formatDate(date) {
@@ -16,3 +17,27 @@ export function formatTime(date) {
 
     return `${ora}:${perc}`;
 }
+
+
+export async function geocodeAddress(address) {
+        const baseUrl = 'https://nominatim.openstreetmap.org/search';
+        const params = {
+            q: address,
+            format: 'json',
+            limit: 1
+        };
+
+        const response = await axios.get(baseUrl, { params });
+        if (response.data && response.data.length > 0) {
+            const location = response.data[0];
+            return {
+                lat: parseFloat(location.lat),
+                lon: parseFloat(location.lon)
+            };
+        } else {
+            throw new Error('Cím nem található');
+        }
+    }
+
+
+

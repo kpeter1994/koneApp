@@ -18,7 +18,7 @@ const form = useForm({
     error_type: 'normal',
     troubleshooter: props.selectedEquipment.worker,
     isStand: 'igen',
-    injured: '',
+    injured: 'n',
     whistleblower: '',
     whistleblower_tel: '',
     comment: '',

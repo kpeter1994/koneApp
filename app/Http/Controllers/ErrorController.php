@@ -66,23 +66,25 @@ class ErrorController extends Controller
      */
     public function edit(Error $error)
     {
+        $error->load('equipment');
         return Inertia::render('Error/Edit', compact('error'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Error $error)
     {
-
+        $error->update($request->all());
+        return redirect()->route('error.index')->with('success', 'Hiba sikeresen módosítva!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Error $error)
     {
-
-
+        $error->delete();
+        return redirect()->route('error.index')->with('success', 'Hiba sikeresen törölve!');
     }
 }

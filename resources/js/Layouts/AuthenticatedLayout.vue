@@ -6,6 +6,7 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
+import MapComponent from "@/Components/map/MapComponent.vue";
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -32,14 +33,15 @@ const showingNavigationDropdown = ref(false);
                                     Vezérlőpult
                                 </NavLink>
                                 <NavLink :href="route('equipment.index')" :active="route().current('equipment.index')">
-                                    <i class="fa-solid fa-elevator mr-1.5"></i>
+                                    <i class="fa-solid fa-elevator opacity-75 mr-1.5"></i>
                                     Berendezések
                                 </NavLink>
                                 <NavLink :href="route('error.index')" :active="route().current('error.index')">
-                                    <i class="fa-solid fa-toolbox mr-1.5"></i>
+                                    <i class="fa-solid fa-toolbox opacity-75 mr-1.5"></i>
                                     Hibabejenetések
                                 </NavLink>
                                 <NavLink :href="route('workers.index')" :active="route().current('workers.index')">
+                                    <i class="fa-solid fa-user-gear opacity-75 mr-1.5"></i>
                                     Karbantartók
                                 </NavLink>
                             </div>
@@ -148,8 +150,9 @@ const showingNavigationDropdown = ref(false);
 
             <!-- Page Heading -->
             <header class="bg-white dark:bg-gray-800 shadow" v-if="$slots.header">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
                     <slot name="header" />
+                    <MapComponent></MapComponent>
                 </div>
             </header>
 
