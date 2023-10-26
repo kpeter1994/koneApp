@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Error;
 
-class ErrorController extends Controller
+class  ErrorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,6 +15,7 @@ class ErrorController extends Controller
     public function index()
     {
         $errors = Error::with('equipment')->orderBy('created_at', 'desc')->get();
+
 
         return Inertia::render('Error/Index', compact('errors'));
     }
@@ -98,7 +99,7 @@ class ErrorController extends Controller
 
         $errorsGroupByWorkers = $errors->groupBy('troubleshooter');
 
-        return response()->json($errorsGroupByWorkers);
+        return response()->json($errorsGroupByWorkers->toArray());
 
     }
 }

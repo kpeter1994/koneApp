@@ -54,4 +54,8 @@ Route::middleware(['web'])->group(function () {
     });
 
 });
+
+//Test view
+Route::get('/test', [\App\Services\MapService::class, 'test']);
+
 require __DIR__ . '/auth.php';
