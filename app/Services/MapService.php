@@ -2,54 +2,40 @@
 
 namespace App\Services;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+
+
 class MapService{
 
-    public function getGeoLocationFromGoogleMaps($address) {
+    public function getGeoLocation($address){
 
-        $url = 'https://www.google.com/maps/dir/' . urlencode($address);
-        dd($url);
+        //$apiKey = '4dc51cca94e940118ab737aaba329121';
+        $apiKey = 'c4c532f01d4448e896548c0fade0f24c';
 
-        // Inicializáljuk a cURL sessiont
-        $ch = curl_init();
+        $response = Http::get('https://api.geoapify.com/v1/geocode/search', [
+            'text' => $address,
+            'format' => 'json',
+            'apiKey' => $apiKey
+            ]);
 
-        // Beállítjuk a cURL opciókat
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($ch, CURLOPT_HEADER, true);  // Fejlécet is visszaadjuk
+        return $response->json();
+    }
 
-        // Végrehajtjuk a cURL kérést
-        $output = curl_exec($ch);
 
-        dd($output);
 
-        // Bontsuk le az átirányított URL-t
-        $redirectedUrl = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
+    public function test()
+    {
+        $equipments = \App\Models\Equipment::all();
 
-        // Bezárjuk a cURL sessiont
-        curl_close($ch);
-
-        // Regex kifejezéssel keresünk geolokációs adatokat az átirányított URL-ben
-        $pattern = '/@(-?\d+\.\d+),(-?\d+\.\d+),\d+z/';
-        if (preg_match($pattern, $redirectedUrl, $matches)) {
-            return [
-                'lat' => $matches[1],
-                'lon' => $matches[2]
-            ];
-        } else {
-            return null;
+        foreach ($equipments as $equipment) {
+            $geoLocation = $this->getGeoLocation($equipment->address);
+            $equipment->lat = $geoLocation['results'][0]['lat'];
+            $equipment->lng = $geoLocation['results'][0]['lon'];
+            $equipment->save();
         }
+//        dd($this->getGeoLocation('HORVÁTH MIHÁLY TÉR 15., BUDAPEST')['results'][0]['lon']);
+
     }
 
-
-
-public function test(){
-    $address = 'VITKOVICS MIHÁLY UTCA 8., BUDAPEST';
-    $result = $this->getGeoLocationFromGoogleMaps($address);
-    if ($result) {
-        echo "Latitude: " . $result['lat'] . ", Longitude: " . $result['lon'];
-    } else {
-        echo "Nem található geolokációs adat.";
-    }
-    }
 }

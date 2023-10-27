@@ -25,5 +25,7 @@ class Equipment extends Model
         'rated_load',
         'inventory_number',
         'comment',
+        'lat',
+        'lng',
     ];
 }

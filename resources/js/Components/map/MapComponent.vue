@@ -2,7 +2,7 @@
 import {onMounted, ref, watch, nextTick} from "vue";
 import L from 'leaflet';
 import {onClickOutside} from "@vueuse/core";
-import {geocodeAddress, formatTime} from "@/utils.js";
+import {formatTime} from "@/utils.js";
 import axios from "axios";
 import LoadingComponent from "@/Components/form/LoadingComponent.vue";
 
@@ -16,52 +16,36 @@ const close = () => mapVisible.value = false
 
 
 onMounted(async () => {
-
     try {
         const response = await axios.get('/api/error-by-workers');
         errorsByWorker.value = response.data;
-        console.log(errorsByWorker.value);
 
-        const allPromises = [];
-
-        Object.values(errorsByWorker.value).forEach(workersArray => {
-            if (Array.isArray(workersArray)) {
-                const promisesForWorker = [];
-                workersArray.forEach(worker => {
-                    const promise = geocodeAddress(worker.equipment.address).catch(error => {
-                        console.error(`Hiba a következő cím geokódolásakor: ${worker.equipment.address}. Hiba: ${error.message}`);
-                        return null; // null-t adunk vissza hiba esetén
-                    });
-                    promisesForWorker.push(promise);
-                });
-                allPromises.push(Promise.all(promisesForWorker));
-            }
+        geoCoordinates.value = Object.values(errorsByWorker.value).map((worker) => {
+            return worker.map((error) => {
+                return {
+                    lat: error.equipment.lat,
+                    lng: error.equipment.lng,
+                    troubleshooter: error.troubleshooter,
+                    address: error.equipment.address,
+                    createdAt: error.created_at
+                };
+            });
         });
 
-        console.log('Ez az összes'+ allPromises);
-
-        geoCoordinates.value = (await Promise.all(allPromises)).map(coordsForWorker => coordsForWorker.filter(coord => coord !== null));
-
-
-        console.log(geoCoordinates.value);
-
-        const pontok = geoCoordinates.value.map(coordsForWorker => coordsForWorker.map(item => [item.lat, item.lon]));
-
-
+        // console.log(errorsByWorker.value);
         loading.value = true
-        console.log('ezek a pontok:' + pontok);
+
 
     } catch (error) {
         console.error(error);
     }
-
 })
 
 
 watch(mapVisible, async (newValue) => {
-    if (newValue && geoCoordinates.value) {
-        // Várj a DOM frissítésére
+    if (newValue && geoCoordinates.value.length) {
         await nextTick();
+
 
         // Térkép inicializálása
         const map = L.map('map').setView([47.5079169, 19.0795471], 13);
@@ -70,6 +54,8 @@ watch(mapVisible, async (newValue) => {
         }).addTo(map);
 
         const colors = ['blue', 'red', 'green', 'purple', 'orange', 'darkred', 'darkblue', 'darkgreen', 'darkpurple', 'cadetblue'];
+
+
 
         geoCoordinates.value.forEach((coordsForWorker, workerIndex) => {
             const workersArray = Object.values(errorsByWorker.value)[workerIndex];
@@ -84,8 +70,8 @@ watch(mapVisible, async (newValue) => {
                             </svg>`,
                     iconSize: [10, 10]
                 });
-                L.marker([coord.lat, coord.lon], { icon: markerIcon }).addTo(map)
-                    .bindPopup(`${worker.troubleshooter}<br>${worker.equipment.address}<br>${formatTime(worker.created_at)}`)
+                L.marker([coord.lat, coord.lng], { icon: markerIcon }).addTo(map)
+                    .bindPopup(`${coord.troubleshooter}<br>${coord.address}<br>${formatTime(coord.createdAt)}`)
                     .openPopup();
             });
         });

@@ -77,7 +77,19 @@ class  ErrorController extends Controller
      */
     public function update(Request $request, Error $error)
     {
-        $error->update($request->all());
+        $data = $request->only([
+            'description',
+            'error_type',
+            'isStand',
+            'injured',
+            'dispatcher',
+            'whistleblower',
+            'whistleblower_tel',
+            'comment',
+            'troubleshooter'
+        ]);
+        $error->fill($data);
+        $error->save();
         return redirect()->route('error.index')->with('success', 'Hiba sikeresen módosítva!');
     }
 

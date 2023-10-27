@@ -51,8 +51,10 @@ watch(search, value => {
             <div class=" mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
                     <div>
-                        <div class="flex justify-between items-center mb-3">
-                            <spant>text</spant>
+                        <div class="flex justify-end gap-6 items-center mb-3">
+                            <button class="w-8 h-8 flex justify-center items-center bg-green-100 rounded text-blue-900">
+                                <i class="fa-solid fa-file-excel"></i>
+                            </button>
                             <div class="relative flex items-center">
                                 <i class="fa-solid fa-magnifying-glass absolute ml-3 pointer-events-none z-30"></i>
                                 <input
