@@ -18,6 +18,49 @@ export function formatTime(date) {
     return `${ora}:${perc}`;
 }
 
+export class formater {
+    static formatDate(date) {
+        const now = new Date();
+        const inputDate = new Date(date);
+        const diffInSeconds = Math.floor((now - inputDate) / 1000);
+
+        // Ha kevesebb mint egy óra telt el
+        if (diffInSeconds < 3600) {
+            return `${Math.floor(diffInSeconds / 60)} perce`;
+        }
+
+        // Ha kevesebb mint egy nap telt el
+        if (diffInSeconds < 86400) {
+            return `${Math.floor(diffInSeconds / 3600)} órája`;
+        }
+
+        // Ha több mint egy nap telt el, dátum formátumban adjuk vissza
+        const day = inputDate.getDate().toString().padStart(2, '0');
+        const month = (inputDate.getMonth() + 1).toString().padStart(2, '0');
+        const year = inputDate.getFullYear();
+
+        return `${year}-${month}-${day}`;
+    }
+
+    static getMonogram(name) {
+        // Segédfüggvény a monogram készítéséhez
+        function extractInitial(part) {
+            if (part.startsWith('Cs') || part.startsWith('Sz') || part.startsWith('Zs')) {
+                return part.slice(0, 2).toUpperCase();
+            }
+            return part[0].toUpperCase();
+        }
+
+        const parts = name.split(' ');
+
+        const vezetekNev = parts[0] || '';
+        const keresztNev = parts[1] || '';
+
+        return `${extractInitial(vezetekNev)}.${extractInitial(keresztNev)}`;
+    }
+
+
+}
 
 export async function geocodeAddress(address) {
     const baseUrl = 'https://nominatim.openstreetmap.org/search';

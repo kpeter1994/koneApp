@@ -9,6 +9,7 @@ use App\Http\Controllers\WorkOrderController;
 use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\ErrorController;
 use Illuminate\Session\Middleware\StartSession;
+use App\Http\Controllers\FeedController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,7 @@ use Illuminate\Session\Middleware\StartSession;
 Route::middleware(['web'])->group(function () {
 
     Route::get('/', function () {
-        return Inertia::render('Welcome', [
+        return Inertia::render('Auth/Login', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
             'laravelVersion' => Application::VERSION,
@@ -31,9 +32,7 @@ Route::middleware(['web'])->group(function () {
         ]);
     });
 
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('/', [FeedController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
     Route::middleware('auth')->group(function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -51,6 +50,8 @@ Route::middleware(['web'])->group(function () {
 
 
         Route::resource('error', ErrorController::class);
+
+        Route::resource('feed', FeedController::class);
     });
 
 });

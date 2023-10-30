@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Error;
+use App\Models\Feed;
 
 class  ErrorController extends Controller
 {
@@ -34,7 +35,7 @@ class  ErrorController extends Controller
     {
         $errorNumber = date('mHis').'_P';
         $user = auth()->user();
-        //dd($user->name);
+        //dd($user->id);
 
         $error = Error::create([
             'error_number' => $errorNumber,
@@ -51,6 +52,16 @@ class  ErrorController extends Controller
         ]);
 
         $error->save();
+
+        $feed = new FeedController();
+        $errorMessage = '<strong>Új hiba:</strong> '.$error->dispatcher.'
+                        <strong>Cím:</strong> '.$error->equipment->name.' - '.$error->equipment->address.'
+                        <strong>Leírás:</strong> '.$error->description.'
+                        <strong>Bejelentő:</strong> '.$error->whistleblower.'
+                        <strong>Bejelentő tel:</strong> '.$error->whistleblower_tel.'
+                        <strong>Megjegyzés:</strong> '.$error->comment;
+
+        $feed->automaticFeed($user->id,$errorMessage);
 
         return redirect()->route('error.index')->with('success', 'Hiba sikeresen létrehozva!');
     }
@@ -90,6 +101,16 @@ class  ErrorController extends Controller
         ]);
         $error->fill($data);
         $error->save();
+        $feed = new FeedController();
+        $user = auth()->user();
+        $errorMessage = '<strong>Hiba frissítve:</strong> '.$error->dispatcher.'
+                        <strong>Cím:</strong> '.$error->equipment->name.' - '.$error->equipment->address.'
+                        <strong>Leírás:</strong> '.$error->description.'
+                        <strong>Bejelentő:</strong> '.$error->whistleblower.'
+                        <strong>Bejelentő tel:</strong> '.$error->whistleblower_tel.'
+                        <strong>Megjegyzés:</strong> '.$error->comment;
+
+        $feed->automaticFeed($user->id,$errorMessage);
         return redirect()->route('error.index')->with('success', 'Hiba sikeresen módosítva!');
     }
 

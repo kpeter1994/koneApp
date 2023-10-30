@@ -29,8 +29,13 @@ const showingNavigationDropdown = ref(false);
                             </div>
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Vezérlőpult
+                                <NavLink class="relative" :href="route('dashboard')" :active="route().current('dashboard')">
+                                    <i class="fa-solid fa-rss opacity-75 mr-1.5"></i>
+                                    Hírfolyam
+                                    <span class="absolute top-3 right-0 flex h-2 w-2">
+                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                                        <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                                    </span>
                                 </NavLink>
                                 <NavLink :href="route('equipment.index')" :active="route().current('equipment.index')">
                                     <i class="fa-solid fa-elevator opacity-75 mr-1.5"></i>
