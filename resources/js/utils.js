@@ -56,7 +56,7 @@ export class formater {
         const vezetekNev = parts[0] || '';
         const keresztNev = parts[1] || '';
 
-        return `${extractInitial(vezetekNev)}.${extractInitial(keresztNev)}`;
+        return `${extractInitial(vezetekNev)}${extractInitial(keresztNev)}`;
     }
 
 
