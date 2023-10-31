@@ -1,0 +1,2 @@
+GET https://api.geoapify.com/v1/geocode/search?text=HORV%C3%81TH%20MIH%C3%81LY%20T%C3%89R%2015.%2C%20BUDAPEST&format=json&apiKey=4dc51cca94e940118ab737aaba329121
+

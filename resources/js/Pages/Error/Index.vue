@@ -117,7 +117,8 @@ console.log(props.errors)
                             </thead>
                             <tbody>
                             <tr v-for="error in props.errors"
-                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                :class="error.troubleshooter.includes('kiadandó') ? 'bg-yellow-200 dark:bg-red-700' : 'bg-white dark:bg-gray-800'"
+                                class="border-b dark:bg-gray-800 dark:border-gray-700">
 
                                 <td class="px-6 py-4">
                                     {{ error.error_number }}
