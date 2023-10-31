@@ -61,7 +61,7 @@ class  ErrorController extends Controller
                         <strong>Bejelentő tel:</strong> '.$error->whistleblower_tel.'
                         <strong>Megjegyzés:</strong> '.$error->comment;
 
-        $feed->automaticFeed(0,$errorMessage,'system');
+        $feed->automaticFeed(3,$errorMessage,'system');
 
         return redirect()->route('error.index')->with('success', 'Hiba sikeresen létrehozva!');
     }
@@ -110,7 +110,7 @@ class  ErrorController extends Controller
                         <strong>Bejelentő tel:</strong> '.$error->whistleblower_tel.'
                         <strong>Megjegyzés:</strong> '.$error->comment;
 
-        $feed->automaticFeed(0,$errorMessage,'system');
+        $feed->automaticFeed(3,$errorMessage,'system');
         return redirect()->route('error.index')->with('success', 'Hiba sikeresen módosítva!');
     }
 

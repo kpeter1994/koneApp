@@ -11,10 +11,20 @@ class FeedController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = auth()->user();
-        $feeds = Feed::with('creator')->orderBy('created_at', 'desc')->limit(20)->get();
+        // Az alap lekérdezés, amely minden feedet visszaad.
+        $query = Feed::with('creator')->orderBy('created_at', 'desc');
+
+
+
+        // Ha a system=false paraméter jelen van és igaz, akkor ne jelenítse meg a type=system elemeket.
+        if ($request->input('system') === 'false') {
+            $query->where('type', '!=', 'system');
+        }
+
+        $feeds = $query->limit(20)->get();
 
         return Inertia::render('Feed/Index', compact('feeds', 'user'));
     }

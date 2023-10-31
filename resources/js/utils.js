@@ -53,10 +53,14 @@ export class formater {
 
         const parts = name.split(' ');
 
-        const vezetekNev = parts[0] || '';
-        const keresztNev = parts[1] || '';
-
-        return `${extractInitial(vezetekNev)}${extractInitial(keresztNev)}`;
+        if (parts.length === 1) {
+            // Ha csak egy szó van, akkor csak az első betűt adjuk vissza.
+            return extractInitial(parts[0]);
+        } else {
+            const vezetekNev = parts[0] || '';
+            const keresztNev = parts[1] || '';
+            return `${extractInitial(vezetekNev)}${extractInitial(keresztNev)}`;
+        }
     }
 
 
