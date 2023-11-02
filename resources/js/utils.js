@@ -43,6 +43,9 @@ export class formater {
     }
 
     static getMonogram(name) {
+        if (name === null || name === 'NULL') {
+            return ''; // Vagy visszatérhetünk valamilyen alapértelmezett értékkel
+        }
         // Segédfüggvény a monogram készítéséhez
         function extractInitial(part) {
             if (part.startsWith('Cs') || part.startsWith('Sz') || part.startsWith('Zs')) {
