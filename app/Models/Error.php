@@ -14,6 +14,13 @@ class Error extends Model
     protected $fillable = [
         'error_number',
         'equipment_id',
+        'contract_ref',
+        'name',
+        'address',
+        'type',
+        'equipment',
+        'emi',
+        'worker',
         'description',
         'error_type',
         'isStand',

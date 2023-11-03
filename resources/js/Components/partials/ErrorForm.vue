@@ -1,19 +1,26 @@
 <script setup>
 
 import InputLabel from "@/Components/form/InputLabel.vue";
-import InputError from "@/Components/form/InputError.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
-import {useForm} from "@inertiajs/vue3";
+import { useForm} from "@inertiajs/vue3";
 import TextInput from "@/Components/form/TextInput.vue";
+import {watchEffect, ref} from 'vue';
+
 
 const props = defineProps({
     selectedEquipment: Object,
 });
 
-
+const locStorage = ref(null)
 
 const form = useForm({
     equipment_id: props.selectedEquipment.id,
+    contract_ref: props.selectedEquipment.contract_ref,
+    name: props.selectedEquipment.name,
+    address: props.selectedEquipment.address,
+    type: props.selectedEquipment.type,
+    equipment: props.selectedEquipment.equipment,
+    emi: props.selectedEquipment.emi,
+    worker: props.selectedEquipment.worker,
     description: '',
     error_type: 'normal',
     troubleshooter: props.selectedEquipment.worker,
@@ -25,11 +32,40 @@ const form = useForm({
 })
 
 
+const storageKey = `equipment-${props.selectedEquipment.id}`;
+
+if (localStorage.getItem(storageKey)) {
+
+    locStorage.value = JSON.parse(localStorage.getItem(storageKey))
+
+    form.description = locStorage.value.description;
+    form.error_type = locStorage.value.error_type;
+    form.troubleshooter = locStorage.value.troubleshooter;
+    form.isStand = locStorage.value.isStand;
+    form.injured = locStorage.value.injured;
+    form.whistleblower = locStorage.value.whistleblower;
+    form.whistleblower_tel = locStorage.value.whistleblower_tel;
+    form.comment = locStorage.value.comment;
+}
+
+
+
+
+const stopWatch = watchEffect(() => {
+    localStorage.setItem(storageKey, JSON.stringify(form));
+});
+
+// Tisztítsuk meg a Local Storage-t, ha az űrlapot elküldték
+const submitForm = () => {
+    stopWatch();
+    localStorage.removeItem(storageKey);
+    form.post(route('error.store'));
+}
 </script>
 
 <template>
         <div class="bg-white p-6 rounded-2xl max-w-4xl">
-            <form class="flex flex-col gap-3" @submit.prevent="form.post(route('error.store'))">
+            <form class="flex flex-col gap-3" @submit.prevent="submitForm">
                 <div v-if="props.selectedEquipment.comment" class="p-3 bg-blue-100 rounded-2xl">
                     <p class="text-blue-950">
                         <i class="fa-solid fa-circle-info mr-1.5"></i>

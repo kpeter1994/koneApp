@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\WorkOrder;
 use Inertia\Inertia;
@@ -31,6 +32,7 @@ class WorkOrderController extends Controller
      */
     public function store(Request $request)
     {
+
         $validatedOrder = $request->validate([
             'worker_id' => ['required'],
             'status' => ['required'],
@@ -38,8 +40,25 @@ class WorkOrderController extends Controller
             'start_status' => ['required'],
         ]);
 
-        $workOrder = WorkOrder::create($validatedOrder);
-        return redirect()->route('workers.index')->with('success', 'Beosztás sikresen létrehozva!');
+        $today = Carbon::today();
+
+        $existingOrder = WorkOrder::where('worker_id', $validatedOrder['worker_id'])
+            ->where(function ($query) use ($today) {
+                $query->whereDate('start_status', $today)
+                    ->orWhereDate('end_status', $today);
+            })->first();
+
+        if ($existingOrder) {
+            // Ha van ilyen WorkOrder, akkor frissítsük
+            $existingOrder->update($validatedOrder);
+            $message = 'Beosztás sikeresen frissítve!';
+        } else {
+            // Ha nincs, akkor hozzunk létre egy újat
+            WorkOrder::create($validatedOrder);
+            $message = 'Beosztás sikeresen létrehozva!';
+        }
+
+        return redirect()->route('workers.index')->with('success', $message);
     }
 
     /**
@@ -63,7 +82,14 @@ class WorkOrderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'status' => ['required'],
+            'end_status' => ['required'],
+            'start_status' => ['required'],
+        ]);
+
+        $workOrder = WorkOrder::find($id);
+        $workOrder->update($request->all());
     }
 
     /**

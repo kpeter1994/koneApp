@@ -1,10 +1,9 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import {Head} from '@inertiajs/vue3';
-import ErrorForm from "@/Components/partials/ErrorForm.vue";
+import {Head,} from '@inertiajs/vue3';
 import {formatDate, formatTime} from "@/utils.js";
-import NavLink from "@/Components/NavLink.vue";
 import {defineProps, ref} from "vue";
+import axios from "axios";
 
 
 const props = defineProps({
@@ -12,13 +11,27 @@ const props = defineProps({
     flash: Object
 });
 
+const contractTel = ref(null);
+const contractName = ref('Kattints a karbantartóra a telefonszámért!');
+
 const showMessages = ref(true);
+
+const getContract = (contract) => {
+    axios.get(route('workers.show', {name: contract}))
+        .then(response => {
+            contractTel.value = response.data.tel
+            contractName.value = response.data.name
+        })
+        .catch(error => {
+            console.log(error)
+        })
+}
 
 console.log(props.errors)
 </script>
 
 <template>
-    <Head title="Dashboard"/>
+    <Head title="Hibabejelentések"/>
 
     <AuthenticatedLayout>
         <template #header>
@@ -29,7 +42,7 @@ console.log(props.errors)
 
         <div class="py-6">
             <div class=" mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
+                <div class="dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg ">
                     <div class="relative">
                         <div v-if="props.flash.success && showMessages" class="absolute bg-green-100 p-3 gap-6 flex rounded items-center">
                             <p><i class="fa-solid fa-circle-info mr-1.5"></i>{{props.flash.success}}</p>
@@ -37,6 +50,12 @@ console.log(props.errors)
                         </div>
                         <div class="flex justify-end items-center mb-3 text-green-900">
 
+                            <div class="p-3 bg-blue-100 mr-3 rounded ">
+                                {{contractName}}
+                                <span class="font-semibold">
+                                    {{contractTel}}
+                                </span>
+                            </div>
                             <div class="relative flex items-center">
                                 <i class="fa-solid fa-magnifying-glass absolute ml-3 pointer-events-none z-30"></i>
                                 <input
@@ -47,71 +66,70 @@ console.log(props.errors)
                         </div>
                     </div>
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <table class="w-full text-sm text-left text-gray-700 dark:text-gray-200">
                             <thead
-                                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col" class="px-3 py-3">
+                                <th scope="col" class="p-1.5">
                                     Hibajegy száma
                                 </th>
-                                <th scope="col" class="px-3 py-3">
+                                <th scope="col" class="p-1.5">
                                     Dátum
                                 </th>
-                                <th scope="col" class="px-3 py-3">
+                                <th scope="col" class="p-1.5">
                                     Bejelentés Időpontja
                                 </th>
-                                <th scope="col" class="px-3 py-3">
-                                    Szerződésszám
+                                <th scope="col" class="p-1.5">
+                                    Szerződés szám
                                 </th>
-                                <th scope="col" class="px-3 py-3">
+                                <th scope="col" class="p-1.5 whitespace-nowrap">
                                     Partner neve
                                 </th>
-                                <th scope="col" class="px-3 py-3">
+                                <th scope="col" class="p-1.5 whitespace-nowrap">
                                     Beépítési cím
                                 </th>
-                                <th scope="col" class="px-3 py-3">
+                                <th scope="col" class="p-1.5">
                                     Berendezés típusa
                                 </th>
-                                <th scope="col" class="px-3 py-3">
+                                <th scope="col" class="p-1.5">
                                     Equipment
                                 </th>
-                                <th scope="col" class="px-3 py-3">
+                                <th scope="col" class="p-1.5">
                                     ÉMI szám
                                 </th>
-                                <th scope="col" class="px-3 py-3">
+                                <th scope="col" class="p-1.5">
                                     Karbantartó
                                 </th>
-                                <th scope="col" class="px-6 py-3">
+                                <th scope="col" class="p-1.5">
                                     Hiba elhárító karbantartó
                                 </th>
-                                <th scope="col" class="px-6 py-3">
+                                <th scope="col" class="p-1.5">
                                     Hibajelenség leírása (Bejelentő)
                                 </th>
-                                <th scope="col" class="px-6 py-3">
+                                <th scope="col" class="p-1.5">
                                     Hiba típusa
                                 </th>
-                                <th scope="col" class="px-6 py-3">
+                                <th scope="col" class="p-1.5">
                                     Áll-e a lift?
                                 </th>
-                                <th scope="col" class="px-6 py-3">
+                                <th scope="col" class="p-1.5">
                                     Hány sérült van?
                                 </th>
-                                <th scope="col" class="px-6 py-3">
+                                <th scope="col" class="p-1.5">
                                     Diszpécser neve
                                 </th>
-                                <th scope="col" class="px-6 py-3">
+                                <th scope="col" class="p-1.5">
                                     Bejelentő
                                 </th>
-                                <th scope="col" class="px-6 py-3">
+                                <th scope="col" class="p-1.5">
                                     Bejelentő telefonszáma
                                 </th>
-                                <th scope="col" class="px-6 py-3">
+                                <th scope="col" class="p-1.5">
                                     megjegyzés, észrevétel
                                 </th>
-                                <th scope="col" class="px-6 py-3">
+                                <th scope="col" class="p-1.5">
                                     Művelet
                                 </th>
-
 
                             </tr>
                             </thead>
@@ -120,61 +138,61 @@ console.log(props.errors)
                                 :class="error.troubleshooter && error.troubleshooter.includes('kiadandó') ? 'bg-yellow-200 dark:bg-red-700' : 'bg-white dark:bg-gray-800'"
                                 class="border-b dark:bg-gray-800 dark:border-gray-700">
 
-                                <td class="px-6 py-4">
+                                <td class="p-1.5 text-center">
                                     {{ error.error_number }}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="p-1.5 text-center">
                                     {{ formatDate(error.created_at) }}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="p-1.5 text-center">
                                     {{ formatTime(error.created_at) }}
                                 </td>
-                                <td class="px-6 py-4">
-                                    {{ error.equipment.contract_ref }}
+                                <td class="p-1.5 text-center">
+                                    {{ error.contract_ref }}
                                 </td>
-                                <td class="px-6 py-4">
-                                    {{ error.equipment.name }}
+                                <td class="p-1.5 text-center">
+                                    {{ error.name }}
                                 </td>
-                                <td class="px-6 py-4">
-                                    {{ error.equipment.address }}
+                                <td class="p-1.5 text-center min-w-64">
+                                    {{ error.address }}
                                 </td>
-                                <td class="px-6 py-4">
-                                    {{ error.equipment.type }}
+                                <td class="p-1.5 text-center">
+                                    {{ error.type }}
                                 </td>
-                                <td class="px-6 py-4">
-                                    {{ error.equipment.equipment }}
+                                <td class="p-1.5 text-center">
+                                    {{ error.equipment }}
                                 </td>
-                                <td class="px-6 py-4">
-                                    {{ error.equipment.emi }}
+                                <td class="p-1.5 text-center whitespace-nowrap">
+                                    {{ error.emi }}
                                 </td>
-                                <td class="px-6 py-4">
-                                    {{ error.equipment.worker }}
+                                <td class="p-1.5 text-center">
+                                    {{ error.worker }}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="p-1.5 text-center cursor-pointer text-blue-500" @click="getContract(error.troubleshooter)">
                                     {{ error.troubleshooter }}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="p-1.5 text-center">
                                     {{ error.description }}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="p-1.5 text-center">
                                     {{ error.error_type }}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="p-1.5 text-center">
                                     {{ error.isStand }}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="p-1.5 text-center">
                                     {{ error.injured }}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="p-1.5 text-center">
                                     {{ error.dispatcher }}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="p-1.5 text-center">
                                     {{ error.whistleblower }}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="p-1.5 text-center">
                                     {{ error.whistleblower_tel }}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="p-1.5 text-center">
                                     {{ error.comment }}
                                 </td>
 
@@ -183,7 +201,7 @@ console.log(props.errors)
                                     <a
                                         :href="route('error.edit', error.id)"
                                         class="font-medium text-blue-500 dark:text-blue-500 flex items-center whitespace-nowrap">
-                                        <i class="fa-solid fa-pen mr-1.5 opacity-75"></i>
+                                        <i class="fa-solid fa-pen mr-1.5 text-center opacity-75"></i>
                                         Szerkesztés
                                     </a>
                                 </td>

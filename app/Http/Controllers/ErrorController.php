@@ -15,7 +15,7 @@ class  ErrorController extends Controller
      */
     public function index()
     {
-        $errors = Error::with('equipment')->orderBy('created_at', 'desc')->get();
+        $errors = Error::orderBy('created_at', 'desc')->get();
 
 
         return Inertia::render('Error/Index', compact('errors'));
@@ -33,13 +33,25 @@ class  ErrorController extends Controller
      */
     public function store(Request $request)
     {
-        $errorNumber = date('mHis').'_P';
         $user = auth()->user();
+        $errorNumber = date('mdHi').'_P';
+        if($user->name = 'Perényi Csilla')
+        {
+            $errorNumber = date('mdHi').'_C';
+        }
+
         //dd($user->id);
 
         $error = Error::create([
             'error_number' => $errorNumber,
             'equipment_id' =>$request->equipment_id,
+            'contract_ref' => $request->contract_ref,
+            'name' => $request->name,
+            'address' => $request->address,
+            'type' => $request->type,
+            'equipment' => $request->equipment,
+            'emi' => $request->emi,
+            'worker' => $request->worker,
             'description' => $request->description,
             'error_type' => $request->error_type,
             'isStand' => $request->isStand,
@@ -53,18 +65,19 @@ class  ErrorController extends Controller
 
         $error->save();
 
-        $feed = new FeedController();
-        $errorMessage = '<strong>Új hiba:</strong> '.$error->dispatcher.'
-                        <strong>Cím:</strong> '.$error->equipment->name.' - '.$error->equipment->address.'
-                        <strong>Leírás:</strong> '.$error->description.'
-                        <strong>Bejelentő:</strong> '.$error->whistleblower.'
-                        <strong>Bejelentő tel:</strong> '.$error->whistleblower_tel.'
-                        <strong>Megjegyzés:</strong> '.$error->comment;
+//        $feed = new FeedController();
+//        $errorMessage = '<strong>Új hiba:</strong> '.$error->dispatcher.'
+//                        <strong>Cím:</strong> '.$error->equipment->name.' - '.$error->equipment->address.'
+//                        <strong>Leírás:</strong> '.$error->description.'
+//                        <strong>Bejelentő:</strong> '.$error->whistleblower.'
+//                        <strong>Bejelentő tel:</strong> '.$error->whistleblower_tel.'
+//                        <strong>Megjegyzés:</strong> '.$error->comment;
 
 
 //        $feed->automaticFeed(3,$errorMessage,'system');
 
         return redirect()->route('error.index')->with('success', 'Hiba sikeresen létrehozva!');
+
     }
 
     /**
@@ -104,14 +117,16 @@ class  ErrorController extends Controller
         $error->save();
         $feed = new FeedController();
         $user = auth()->user();
-        $errorMessage = '<strong>Hiba frissítve:</strong> '.$error->dispatcher.'
-                        <strong>Cím:</strong> '.$error->equipment->name.' - '.$error->equipment->address.'
-                        <strong>Leírás:</strong> '.$error->description.'
-                        <strong>Bejelentő:</strong> '.$error->whistleblower.'
-                        <strong>Bejelentő tel:</strong> '.$error->whistleblower_tel.'
-                        <strong>Megjegyzés:</strong> '.$error->comment;
+//        $errorMessage = '<strong>Hiba frissítve:</strong> '.$error->dispatcher.'
+//                        <strong>Cím:</strong> '.$error->equipment->name.' - '.$error->equipment->address.'
+//                        <strong>Leírás:</strong> '.$error->description.'
+//                        <strong>Bejelentő:</strong> '.$error->whistleblower.'
+//                        <strong>Bejelentő tel:</strong> '.$error->whistleblower_tel.'
+//                        <strong>Megjegyzés:</strong> '.$error->comment;
 
 //        $feed->automaticFeed(3,$errorMessage,'system');
+
+
         return redirect()->route('error.index')->with('success', 'Hiba sikeresen módosítva!');
     }
 

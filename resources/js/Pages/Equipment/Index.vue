@@ -40,7 +40,7 @@ watch(search, value => {
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Berendezések" />
 
     <AuthenticatedLayout>
         <template #header>

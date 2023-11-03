@@ -42,6 +42,7 @@ Route::middleware(['web'])->group(function () {
 
     Route::middleware('auth')->group(function () {
         Route::get('/kone-workers', [KoneWorkerController::class, 'index'])->name('workers.index');
+        Route::get('/kone-worker', [KoneWorkerController::class, 'show'])->name('workers.show');
 
         Route::post('/work-order', [WorkOrderController::class, 'store'])->name('order.store');
         Route::get('/work-order', [WorkOrderController::class, 'index'])->name('order.index');

@@ -24,7 +24,7 @@ onClickOutside(target, close)
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Hírfolyam" />
 
     <AuthenticatedLayout>
         <template #header>

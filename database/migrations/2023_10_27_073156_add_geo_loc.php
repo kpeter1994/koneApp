@@ -12,8 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('equipments', function (Blueprint $table) {
-            $table->string('lat')->nullable();
-            $table->string('lng')->nullable();
+            // Csak akkor adjuk hozzá az 'lat' oszlopot, ha még nem létezik
+            if (!Schema::hasColumn('equipments', 'lat')) {
+                $table->string('lat')->nullable();
+            }
+
+            // Csak akkor adjuk hozzá az 'lng' oszlopot, ha még nem létezik
+            if (!Schema::hasColumn('equipments', 'lng')) {
+                $table->string('lng')->nullable();
+            }
         });
     }
 
@@ -23,7 +30,14 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('equipments', function (Blueprint $table) {
-            //
+            // Itt pedig ellenőrizzük, hogy léteznek-e az oszlopok, mielőtt eltávolítanánk őket
+            if (Schema::hasColumn('equipments', 'lat')) {
+                $table->dropColumn('lat');
+            }
+
+            if (Schema::hasColumn('equipments', 'lng')) {
+                $table->dropColumn('lng');
+            }
         });
     }
 };

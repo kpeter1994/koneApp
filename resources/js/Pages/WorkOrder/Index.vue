@@ -2,8 +2,6 @@
 import { defineProps, ref } from 'vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
-import TableComponent from "@/Components/tables/TableComponent.vue";
-import OrderForm from "@/Components/partials/OrderForm.vue";
 import {onClickOutside} from '@vueuse/core'
 
 const props = defineProps({
@@ -28,7 +26,7 @@ onClickOutside(target, close)
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Karbantartók elérhetősége" />
 
     <AuthenticatedLayout>
 

@@ -51,9 +51,16 @@ class KoneWorkerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
-        //
+        $worker = KoneWorker::where('name', $request->name)->first();
+
+        if ($worker) {
+            return response()->json($worker);
+        } else {
+            return response()->json(['message' => 'Worker not found'], 404);
+        }
+
     }
 
     /**
