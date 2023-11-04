@@ -35,7 +35,7 @@ class  ErrorController extends Controller
     {
         $user = auth()->user();
         $errorNumber = date('mdHi').'_P';
-        if($user->name = 'Perényi Csilla')
+        if($user->name === 'Perényi Csilla')
         {
             $errorNumber = date('mdHi').'_C';
         }
