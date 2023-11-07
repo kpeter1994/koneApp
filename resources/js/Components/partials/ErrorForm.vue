@@ -3,13 +3,17 @@
 import InputLabel from "@/Components/form/InputLabel.vue";
 import { useForm} from "@inertiajs/vue3";
 import TextInput from "@/Components/form/TextInput.vue";
-import {watchEffect, ref} from 'vue';
+import {watchEffect, ref, onMounted} from 'vue';
+import {isDutyTime} from "@/utils.js";
 
 
 const props = defineProps({
     selectedEquipment: Object,
+    orders: Object
 });
 
+const workerAvailable = ref(true)
+const currentDuty = ref(null)
 const locStorage = ref(null)
 
 const form = useForm({
@@ -23,7 +27,7 @@ const form = useForm({
     worker: props.selectedEquipment.worker,
     description: '',
     error_type: 'normal',
-    troubleshooter: props.selectedEquipment.worker,
+    troubleshooter: 'kiadandó',
     isStand: 'igen',
     injured: 'n',
     whistleblower: '',
@@ -49,8 +53,6 @@ if (localStorage.getItem(storageKey)) {
 }
 
 
-
-
 const stopWatch = watchEffect(() => {
     localStorage.setItem(storageKey, JSON.stringify(form));
 });
@@ -61,6 +63,43 @@ const submitForm = () => {
     localStorage.removeItem(storageKey);
     form.post(route('error.store'));
 }
+
+const selectWorker = (workerName) => {
+    form.troubleshooter = workerName
+}
+
+onMounted(() => {
+    const notAvailable = props.orders.filter(order => order.status === 'Szabadságon')
+
+    if (isDutyTime()) {
+        workerAvailable.value = false
+    }
+
+    notAvailable.forEach(order => {
+        if (order.worker.name === props.selectedEquipment.worker) {
+            workerAvailable.value = false
+        }
+    })
+
+
+    const elevatorDuty = props.orders.filter(order =>
+        order.status.toLowerCase().includes('ügyeletes') &&
+        !order.status.toLowerCase().includes('mozgólépcső')
+    );
+
+    const escalatorDuty = props.orders.filter(order => order.status === 'Mozgólépcső ügyeletes')
+
+
+    if (props.selectedEquipment.type === 'Elevator'){
+        currentDuty.value = elevatorDuty
+    }
+
+    if (props.selectedEquipment.type === 'Escalator'){
+        currentDuty.value = escalatorDuty
+    }
+
+
+})
 </script>
 
 <template>
@@ -75,15 +114,12 @@ const submitForm = () => {
                 <span class="font-semibold text-gray-900"><span class="text-gray-500">partner neve: </span>{{ props.selectedEquipment.name}}</span>
                 <span class="font-semibold text-gray-900"><span class="text-gray-500">belépési cím: </span>{{ props.selectedEquipment.address}}</span>
                 <div class="flex gap-3">
-                    <span class="font-semibold text-gray-900"><span class="text-gray-500">karbantartó: </span>{{ props.selectedEquipment.worker}}</span>
-                    <span class="text-red-500"><i class="fa-solid fa-circle-exclamation mr-1.5"></i>Nem elérhető</span>
+                    <span @click="selectWorker(props.selectedEquipment.worker)" class="font-semibold text-gray-900 hover:text-gray-600 cursor-pointer"><span class="text-gray-500">karbantartó: </span>{{ props.selectedEquipment.worker}}</span>
+                    <span v-if="!workerAvailable" class="text-red-500"><i class="fa-solid fa-circle-exclamation mr-1.5 "></i>Nem elérhető</span>
 
-                    <span class="font-semibold text-gray-900"><span class="text-gray-500">ügyeletes(ek): </span>
-                        <span class="py-1.5 px-3 bg-green-100 rounded-2xl shadow">
-                            {{ props.selectedEquipment.worker}} 3
-                        </span>
-                        <span class="py-1.5 px-3 bg-green-100 rounded-2xl shadow">
-                            {{ props.selectedEquipment.worker}} 5
+                    <span v-if="!workerAvailable" class="font-semibold text-gray-900"><span class="text-gray-500">ügyeletes(ek): </span>
+                        <span v-for="duty in currentDuty" class="py-1 px-2 border  bg-green-100 rounded-2xl cursor-pointer hover:bg-green-200 mr-1.5" @click="selectWorker(duty.worker.name)">
+                            {{ duty.worker.name}}
                         </span>
 
                     </span>
@@ -103,16 +139,16 @@ const submitForm = () => {
                 <div class="flex gap-3">
                     <div>
                         <input-label value="Hiba típusa"></input-label>
-                        <input type="radio" id="normal" name="error_type" class="mr-1.5" checked value="normal">
+                        <input type="radio" id="normal" name="error_type" class="mr-1.5" checked value="normal" v-model="form.error_type">
                         <label for="normal">normal</label><br>
-                        <input type="radio" id="beragadas" name="error_type" class="mr-1.5" value="beragadas">
+                        <input type="radio" id="beragadas" name="error_type" class="mr-1.5" value="beragadas" v-model="form.error_type">
                         <label for="beragadas">beragadás</label><br>
                     </div>
                     <div>
                         <input-label value="Áll-e a lift?"></input-label>
-                        <input type="radio" id="igen" name="stand" checked class="mr-1.5" value="igen">
+                        <input type="radio" id="igen" name="stand" checked class="mr-1.5" value="igen" v-model="form.isStand">
                         <label for="igen">igen</label><br>
-                        <input type="radio" id="nem" name="stand" class="mr-1.5" value="nem">
+                        <input type="radio" id="nem" name="stand" class="mr-1.5" value="nem" v-model="form.isStand">
                         <label for="nem">nem</label><br>
                     </div>
                     <div>

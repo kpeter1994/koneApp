@@ -7,7 +7,8 @@ import {onClickOutside} from "@vueuse/core";
 
 
 const props = defineProps({
-    equipments: Object
+    equipments: Object,
+    orders: Object
 });
 
 
@@ -17,7 +18,7 @@ const formVisited = ref(false)
 const target = ref(null)
 const selectedEquipment = ref(null);
 
-console.log(props.equipments)
+
 
 const handleClicked = (equipment) => {
     formVisited.value = true;
@@ -160,7 +161,7 @@ watch(search, value => {
         </div>
 
        <div  v-if="formVisited" class="fixed top-0 bg-gray-800 bg-opacity-25 w-full h-screen flex justify-center items-center backdrop-blur-sm z-30">
-            <ErrorForm :selectedEquipment="selectedEquipment" ref="target"></ErrorForm>
+            <ErrorForm :orders="props.orders" :selectedEquipment="selectedEquipment" ref="target"></ErrorForm>
        </div>
 
     </AuthenticatedLayout>

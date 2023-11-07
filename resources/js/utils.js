@@ -106,4 +106,48 @@ export async function geocodeAddress(address) {
     }
 }
 
+export function isDutyTime(){
+
+    const holidays = [
+        '01-01',
+        '03-15',
+        '05-01',
+        '08-20',
+        '10-23',
+        '11-01',
+        '12-24',
+        '12-25',
+        '12-26',
+        '12-27',
+        '12-28',
+        '12-29',
+        '12-30',
+        '12-31'
+    ]
+
+    const now = new Date();
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // Hónapok 0-tól kezdődnek JavaScriptben, ezért hozzáadunk 1-et
+    const day = String(now.getDate()).padStart(2, '0');
+    const today = `${month}-${day}`;
+    const dayOfWeek = now.getDay();
+    const currentHour  = now.getHours();
+
+    if (holidays.includes(today)) {
+        return true;
+    }
+
+    if (dayOfWeek === 0 || dayOfWeek === 6) {
+        return true;
+    }
+
+    if (dayOfWeek === 5 && currentHour >= 14) {
+        return true;
+    }
+
+    if (currentHour < 8 || currentHour >= 16) {
+        return true;
+    }
+
+}
+
 

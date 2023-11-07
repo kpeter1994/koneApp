@@ -4,13 +4,14 @@ import L from 'leaflet';
 import {onClickOutside} from "@vueuse/core";
 import {formatTime} from "@/utils.js";
 import axios from "axios";
-import LoadingComponent from "@/Components/form/LoadingComponent.vue";
+
 
 const errorsByWorker = ref(null)
 const loading = ref(false)
 let geoCoordinates = ref([]);
 const target = ref(null)
 const mapVisible = ref(false);
+const errorNumber = ref(0);
 
 const close = () => mapVisible.value = false
 
@@ -19,6 +20,7 @@ onMounted(async () => {
     try {
         const response = await axios.get('/api/error-by-workers');
         errorsByWorker.value = response.data;
+        errorNumber.value = Object.values(errorsByWorker.value).reduce((acc, curr) => acc + curr.length, 0);
 
         geoCoordinates.value = Object.values(errorsByWorker.value).map((worker) => {
             return worker.map((error) => {
@@ -96,8 +98,8 @@ onClickOutside(target, close)
         <div v-if="mapVisible"
              class="fixed top-0 left-0 bg-gray-900 w-full h-screen z-40 flex justify-center items-center bg-opacity-25 backdrop-blur p-3">
 
-            <LoadingComponent loading-message="Térkép betöltése..." v-if="!loading" />
-            <div v-if="loading" ref="target" id="map" class="border border-gray-900 w-full xl:w-[1200px] h-[800px]"></div>
+            <div v-if="errorNumber === 0" ref="target" class="bg-white text-xl p-12 rounded-2xl">Ma még nem lett cím kiadva.</div>
+            <div v-if="errorNumber > 0" ref="target" id="map" class="border border-gray-900 w-full xl:w-[1200px] h-[800px]"></div>
         </div>
     </transition>
 

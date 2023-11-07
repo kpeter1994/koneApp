@@ -1,8 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head, useForm} from '@inertiajs/vue3';
-import ErrorForm from "@/Components/partials/ErrorForm.vue";
-import {formatDate, formatTime} from "@/utils.js";
 import InputLabel from "@/Components/form/InputLabel.vue";
 import TextInput from "@/Components/form/TextInput.vue";
 
@@ -70,16 +68,16 @@ const deleteError = () => {
                                 <div class="flex gap-3">
                                     <div>
                                         <input-label value="Hiba típusa"></input-label>
-                                        <input type="radio" id="normal" name="error_type" class="mr-1.5" checked value="normal">
+                                        <input type="radio" id="normal" name="error_type" class="mr-1.5" checked value="normal" v-model="form.error_type">
                                         <label for="normal">normal</label><br>
-                                        <input type="radio" id="beragadas" name="error_type" class="mr-1.5" value="beragadas">
+                                        <input type="radio" id="beragadas" name="error_type" class="mr-1.5" value="beragadas" v-model="form.error_type">
                                         <label for="beragadas">beragadás</label><br>
                                     </div>
                                     <div>
                                         <input-label value="Áll-e a lift?"></input-label>
-                                        <input type="radio" id="igen" name="stand" checked class="mr-1.5" value="igen">
+                                        <input type="radio" id="igen" name="stand" checked class="mr-1.5" value="igen" v-model="form.isStand">
                                         <label for="igen">igen</label><br>
-                                        <input type="radio" id="nem" name="stand" class="mr-1.5" value="nem">
+                                        <input type="radio" id="nem" name="stand" class="mr-1.5" value="nem" v-model="form.isStand">
                                         <label for="nem">nem</label><br>
                                     </div>
                                     <div>
