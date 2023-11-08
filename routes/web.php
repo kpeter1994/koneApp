@@ -53,6 +53,8 @@ Route::middleware(['web'])->group(function () {
 
         Route::resource('error', ErrorController::class);
 
+        Route::get('export', [ErrorController::class, 'export'])->name('export');
+
         Route::resource('feed', FeedController::class);
 
         Route::post('/import', [EquipmentService::class, 'import'])->name('import');

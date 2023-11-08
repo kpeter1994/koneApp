@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Error;
 use App\Models\Feed;
+use App\Exports\ErrorExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class  ErrorController extends Controller
 {
@@ -150,5 +152,11 @@ class  ErrorController extends Controller
 
         return response()->json($errorsGroupByWorkers->toArray());
 
+    }
+
+    public function export()
+    {
+        $date = Carbon::now()->format('Y_m_d');
+        return Excel::download(new ErrorExport, 'Pandant_hibabejelentés_Új_'.$date.'.xlsx');
     }
 }

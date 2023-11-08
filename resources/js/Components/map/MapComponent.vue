@@ -90,8 +90,9 @@ onClickOutside(target, close)
 
 <template>
     <button @click="mapVisible = true"
-            class="w-8 h-8 flex justify-center items-center bg-blue-50 rounded text-blue-900">
+            class="flex justify-center items-center bg-blue-50 rounded text-blue-900 px-2 py-1 font-semibold gap-1">
         <i class="fa-solid fa-map"></i>
+        <span>Térkép</span>
     </button>
 
     <transition name="fade">

@@ -7,6 +7,7 @@ import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
 import MapComponent from "@/Components/map/MapComponent.vue";
+import FileForm from "@/Components/form/FileForm.vue";
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -158,6 +159,11 @@ const showingNavigationDropdown = ref(false);
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
                     <slot name="header" />
                     <div class="flex gap-3">
+                        <FileForm></FileForm>
+                        <a class="py-1 px-2 bg-green-100 rounded font-semibold" :href="route('export')">
+                            <i class="fa-solid fa-file-excel"></i>
+                            Export
+                        </a>
                         <MapComponent />
                     </div>
 

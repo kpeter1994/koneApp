@@ -50,6 +50,7 @@ console.log(props.errors)
                         </div>
                         <div class="flex justify-end items-center mb-3 text-green-900">
 
+
                             <div class="p-3 bg-blue-100 mr-3 rounded ">
                                 {{contractName}}
                                 <span class="font-semibold">

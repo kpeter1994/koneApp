@@ -55,8 +55,6 @@ watch(search, value => {
                     <div>
                         <div class="flex justify-end gap-6 items-center mb-3">
 
-                            <FileForm></FileForm>
-
                             <div class="relative flex items-center">
                                 <i class="fa-solid fa-magnifying-glass absolute ml-3 pointer-events-none z-30"></i>
                                 <input

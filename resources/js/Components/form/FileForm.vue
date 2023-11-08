@@ -24,15 +24,15 @@ const submit = () => {
 </script>
 
 <template>
-    <form @submit.prevent="submit">
-        <label for="excel_file"><i class="fa-solid fa-file-excel"></i></label>
-        <input id="excel_file" name="excel_file" type="file" @change="handleFileUpload" />
+    <form @submit.prevent="submit" class="flex justify-center items-center gap-1.5">
+        <label class="block text-sm font-medium text-gray-900 dark:text-white whitespace-nowrap" for="excel_file"></label>
+        <input class="block w-full  text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="excel_file" name="excel_file" type="file" @change="handleFileUpload" />
 
-        <button type="submit">Importálás</button>
+        <button class="flex justify-center items-center gap-1.5 px-2 py-1 bg-blue-100 rounded font-semibold" type="submit"><i class="fa-solid fa-file-excel"></i> Importálás</button>
     </form>
-    <div v-if="flashMessage">
-        {{ flashMessage }}
-    </div>
+<!--    <div v-if="flashMessage">-->
+<!--        {{ flashMessage }}-->
+<!--    </div>-->
 </template>
 
 <style scoped>
