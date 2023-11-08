@@ -69,7 +69,7 @@ const selectWorker = (workerName) => {
 }
 
 onMounted(() => {
-    const notAvailable = props.orders.filter(order => order.status === 'Szabadságon')
+    const notAvailable = props.orders.filter(order => order.status === 'Szabadságon' || order.status === 'Külön munka')
 
     if (isDutyTime()) {
         workerAvailable.value = false
