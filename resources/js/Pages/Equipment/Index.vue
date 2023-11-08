@@ -79,13 +79,13 @@ watch(search, value => {
                                 Beépítési cím
                             </th>
                             <th scope="col" class="px-6 py-3">
+                                Berendezés típusa
+                            </th>
+                            <th scope="col" class="px-6 py-3">
                                 Equipment
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 ÉMI szám
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Berendezés típusa
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Karbantartó
