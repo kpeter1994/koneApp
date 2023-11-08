@@ -107,7 +107,6 @@ export async function geocodeAddress(address) {
 }
 
 export function isDutyTime(){
-
     const holidays = [
         '01-01',
         '03-15',
@@ -124,7 +123,6 @@ export function isDutyTime(){
         '12-30',
         '12-31'
     ]
-
     const now = new Date();
     const month = String(now.getMonth() + 1).padStart(2, '0'); // Hónapok 0-tól kezdődnek JavaScriptben, ezért hozzáadunk 1-et
     const day = String(now.getDate()).padStart(2, '0');

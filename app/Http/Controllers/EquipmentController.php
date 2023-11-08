@@ -38,4 +38,6 @@ class EquipmentController extends Controller
 
         return Inertia::render('Equipment/Index', compact('equipments', 'orders'));
     }
+
+
 }

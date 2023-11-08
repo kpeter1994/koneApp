@@ -4,6 +4,7 @@ import {Head, useForm} from '@inertiajs/vue3';
 import {ref, watch} from "vue";
 import ErrorForm from "@/Components/partials/ErrorForm.vue";
 import {onClickOutside} from "@vueuse/core";
+import FileForm from "@/Components/form/FileForm.vue";
 
 
 const props = defineProps({
@@ -53,9 +54,9 @@ watch(search, value => {
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
                     <div>
                         <div class="flex justify-end gap-6 items-center mb-3">
-                            <button class="w-8 h-8 flex justify-center items-center bg-green-100 rounded text-blue-900">
-                                <i class="fa-solid fa-file-excel"></i>
-                            </button>
+
+                            <FileForm></FileForm>
+
                             <div class="relative flex items-center">
                                 <i class="fa-solid fa-magnifying-glass absolute ml-3 pointer-events-none z-30"></i>
                                 <input

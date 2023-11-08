@@ -10,6 +10,7 @@ use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\ErrorController;
 use Illuminate\Session\Middleware\StartSession;
 use App\Http\Controllers\FeedController;
+use App\Services\EquipmentService;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,8 @@ Route::middleware(['web'])->group(function () {
         Route::resource('error', ErrorController::class);
 
         Route::resource('feed', FeedController::class);
+
+        Route::post('/import', [EquipmentService::class, 'import'])->name('import');
     });
 
 });
