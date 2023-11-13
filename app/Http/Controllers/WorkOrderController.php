@@ -48,15 +48,18 @@ class WorkOrderController extends Controller
                     ->orWhereDate('end_status', $today);
             })->first();
 
-        if ($existingOrder) {
-            // Ha van ilyen WorkOrder, akkor frissítsük
-            $existingOrder->update($validatedOrder);
-            $message = 'Beosztás sikeresen frissítve!';
-        } else {
-            // Ha nincs, akkor hozzunk létre egy újat
-            WorkOrder::create($validatedOrder);
-            $message = 'Beosztás sikeresen létrehozva!';
-        }
+        WorkOrder::create($validatedOrder);
+        $message = 'Beosztás sikeresen létrehozva!';
+
+//        if ($existingOrder) {
+//            // Ha van ilyen WorkOrder, akkor frissítsük
+//            $existingOrder->update($validatedOrder);
+//            $message = 'Beosztás sikeresen frissítve!';
+//        } else {
+//            // Ha nincs, akkor hozzunk létre egy újat
+//            WorkOrder::create($validatedOrder);
+//            $message = 'Beosztás sikeresen létrehozva!';
+//        }
 
         return redirect()->route('workers.index')->with('success', $message);
     }
@@ -95,9 +98,13 @@ class WorkOrderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->order;;
+        $order = WorkOrder::find($id);
+        $order->delete();
+
+        return redirect()->route('workers.index')->with('success', 'Beosztás sikeresen törölve!');
     }
 
 

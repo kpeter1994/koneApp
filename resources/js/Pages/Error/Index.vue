@@ -27,7 +27,7 @@ const getContract = (contract) => {
         })
 }
 
-console.log(props.errors)
+
 </script>
 
 <template>

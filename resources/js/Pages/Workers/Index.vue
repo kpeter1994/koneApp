@@ -57,7 +57,7 @@ onClickOutside(target, close)
         </div>
 
         <div  v-if="formVisited" class="top-0 fixed bg bg-gray-800 bg-opacity-25 w-full min-h-screen flex justify-center items-center backdrop-blur-sm z-30">
-            <OrderForm ref="target"   :worker="selectedWorker" ></OrderForm>
+            <OrderForm ref="target" :orders="props.orders"   :worker="selectedWorker" ></OrderForm>
         </div>
 
 

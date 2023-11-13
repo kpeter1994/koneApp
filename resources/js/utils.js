@@ -42,6 +42,20 @@ export class formater {
         return `${year}-${month}-${day}`;
     }
 
+    static formatDateNormal(date) {
+        const d = new Date(date)
+
+        const ev = d.getFullYear();
+        const ho = (d.getMonth() + 1).toString().padStart(2, '0'); // A hónapok 0-tól indexeltek, ezért +1, majd két karakter hosszúságúvá alakítjuk
+        const nap = d.getDate().toString().padStart(2, '0');
+
+
+        const ora = d.getHours().toString().padStart(2, '0'); // Az órát két karakter hosszúvá alakítjuk
+        const perc = d.getMinutes().toString().padStart(2, '0'); // A percet két karakter hosszúvá alakítjuk
+
+        return `${ev}.${ho}.${nap} ${ora}:${perc}`;
+    }
+
     static getMonogram(name) {
         if (name === null || name === 'NULL') {
             return ''; // Vagy visszatérhetünk valamilyen alapértelmezett értékkel
@@ -145,6 +159,119 @@ export function isDutyTime(){
     if (currentHour < 8 || currentHour >= 16) {
         return true;
     }
+
+}
+
+export function getStatusInitialValue(status = 'Délelötti ügyeletes') {
+    const today = new Date();
+
+    function toLocalISOFormat(hour, isNextDay  = false) {
+        const date = new Date();
+
+        if (isNextDay) {
+            date.setDate(date.getDate() + 1);
+        }
+
+        date.setHours(hour, 0, 0, 0);
+
+        return date.getFullYear() + '-' +
+            String(date.getMonth() + 1).padStart(2, '0') + '-' +
+            String(date.getDate()).padStart(2, '0') + 'T' +
+            String(date.getHours()).padStart(2, '0') + ':' +
+            String(date.getMinutes()).padStart(2, '0');
+    }
+
+    //Délelötti ügyeletes
+
+    if (status === 'Délelötti ügyeletes' && today.getDay() === 5) {
+        return {
+            start_status: toLocalISOFormat(8),
+            end_status: toLocalISOFormat(14)
+        };
+    }
+
+    if (status === 'Délelötti ügyeletes' && today.getDay() === 6) {
+        return {
+            start_status: toLocalISOFormat(8),
+            end_status: toLocalISOFormat(8, true)
+        };
+    }
+
+    if (status === 'Délelötti ügyeletes' && today.getDay() === 7) {
+        return {
+            start_status: toLocalISOFormat(8),
+            end_status: toLocalISOFormat(8, true)
+        };
+    }
+
+    if (status === 'Délelötti ügyeletes') {
+        return {
+            start_status: toLocalISOFormat(8),
+            end_status: toLocalISOFormat(16)
+        };
+    }
+
+    //Délutáni ügyeletes
+
+    if (status === 'Délutáni ügyeletes') {
+        return {
+            start_status: toLocalISOFormat(16),
+            end_status: toLocalISOFormat(8, true)
+        };
+    }
+
+    //Mozgólépcső ügyeletes
+
+    if (status === 'Mozgólépcső ügyeletes' && today.getDay() === 5) {
+        return {
+            start_status: toLocalISOFormat(8),
+            end_status: toLocalISOFormat(14)
+        };
+    }
+
+    if (status === 'Mozgólépcső ügyeletes' && today.getDay() === 6) {
+        return {
+            start_status: toLocalISOFormat(8),
+            end_status: toLocalISOFormat(8, true)
+        };
+    }
+
+    if (status === 'Mozgólépcső ügyeletes' && today.getDay() === 7) {
+        return {
+            start_status: toLocalISOFormat(8),
+            end_status: toLocalISOFormat(8, true)
+        };
+    }
+
+    if (status === 'Mozgólépcső ügyeletes') {
+        return {
+            start_status: toLocalISOFormat(8),
+            end_status: toLocalISOFormat(16)
+        };
+    }
+
+    //Szabadságon
+
+    if (status === 'Szabadságon') {
+        return {
+            start_status: toLocalISOFormat(8),
+            end_status: toLocalISOFormat(8, true)
+        };
+    }
+
+    //Külön munka
+
+    if (status === 'Külön munka') {
+        return {
+            start_status: toLocalISOFormat(8),
+            end_status: toLocalISOFormat(8, true)
+        };
+    }
+
+    return {
+        start_status: toLocalISOFormat(8),
+        end_status: toLocalISOFormat(16)
+    };
 
 }
 
