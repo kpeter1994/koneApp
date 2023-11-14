@@ -14,7 +14,8 @@ class WorkOrderController extends Controller
      */
     public function index()
     {
-        $orders = WorkOrder::with('worker')->get();
+        $now = Carbon::now();
+        $orders = WorkOrder::with('worker')->where('end_status', '>', $now)->get();
 
         return Inertia::render('WorkOrder/Index', compact('orders'));
     }

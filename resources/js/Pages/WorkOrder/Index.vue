@@ -5,7 +5,7 @@ import { Head } from '@inertiajs/vue3';
 import {onClickOutside} from '@vueuse/core'
 
 const props = defineProps({
-    orders: Object
+    orders: Object,
 });
 
 const formVisited = ref(false)

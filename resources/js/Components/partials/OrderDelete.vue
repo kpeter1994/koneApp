@@ -17,7 +17,7 @@ const submitForm = () => {
 
 <template>
     <form @submit.prevent="submitForm">
-        <button type="submit" class="text-red-500"><i class="fa-solid fa-trash"></i>{{orderId}}</button>
+        <button type="submit" class="text-red-500"><i class="fa-solid fa-trash"></i></button>
     </form>
 
 </template>

@@ -18,6 +18,8 @@ class KoneWorkerController extends Controller
         $now = Carbon::now();
         $search = $request->query('search');
 
+        $ordersWeek = WorkOrder::where('end_status', '>', $now)->get();
+
         //dd($now);
 
         $orders = WorkOrder::where('start_status', '<', $now)
@@ -29,7 +31,7 @@ class KoneWorkerController extends Controller
             ->where('name', 'LIKE', "%{$search}%")
             ->get();
 
-        return Inertia::render('Workers/Index', compact('workers','orders', 'search'));
+        return Inertia::render('Workers/Index', compact('workers','orders', 'search', 'ordersWeek'));
     }
 
     /**
