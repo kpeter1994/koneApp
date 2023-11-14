@@ -214,7 +214,7 @@ class ErrorExport implements FromCollection, WithHeadings, WithMapping, WithStyl
                     ],
                 ]);
 
-                $highlightKeywords = ['kiadandó', 'külön kiszállási díj', ' kiszállási díjas', ' kiszállási díj', 'TODO', 'TODO:'];
+                $highlightKeywords = ['kiadandó', 'külön kiszállási díj', ' kiszállási díjas', ' kiszállási díj', 'extra kiszállás', 'TODO', 'TODO:'];
                 $highestRow = $event->sheet->getHighestRow();
                 for ($row = 2; $row <= $highestRow; $row++) {
                     $cellValues = [

@@ -48,7 +48,7 @@ Route::middleware(['web'])->group(function () {
 //        Route::post('/work-order', [WorkOrderController::class, 'store'])->name('order.store');
 //        Route::get('/work-order', [WorkOrderController::class, 'index'])->name('order.index');
 
-        Route::get('/order/{order}', [WorkOrderController::class, 'destroy'])->name('order.destroy');
+//        Route::delete('/order/{order}', [WorkOrderController::class, 'destroy'])->name('order.destroy');
 
         Route::resource('order',WorkOrderController::class);
 

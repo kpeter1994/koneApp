@@ -7,6 +7,7 @@ import {formater} from "@/utils.js";
 import axios from "axios";
 import {getStatusInitialValue} from "@/utils.js";
 import {onMounted, watch, ref, watchEffect} from "vue";
+import OrderDelete from "@/Components/partials/OrderDelete.vue";
 
 const props = defineProps({
     worker: Object,
@@ -28,8 +29,6 @@ ordersOfWorker.value = props.orders.filter(order => order.worker_id === props.wo
 
 
 
-
-
 onMounted(() => {
     const initialValues = getStatusInitialValue(form.status);
     form.start_status = initialValues.start_status;
@@ -43,20 +42,6 @@ watch(() => form.status, (newStatus) => {
     form.end_status = initialValues.end_status;
 })
 
-
-
-
-
-const deleteOrder = (selectedId) => {
-
-if (confirm('Biztosan törölni szeretnéd?')) {
-        axios.delete(route('order.destroy', {order: selectedId}))
-    }
-}
-
-
-
-// console.log(form)
 
 </script>
 
@@ -79,7 +64,7 @@ if (confirm('Biztosan törölni szeretnéd?')) {
                         <td class="border px-4 py-2">{{formater.formatDateNormal( order.start_status) }}</td>
                         <td class="border px-4 py-2">{{formater.formatDateNormal(order.end_status) }}</td>
                         <td class="border px-4 py-2 text-center">
-                            <button @click="deleteOrder(order.id)" class="text-red-500"><i class="fa-solid fa-trash"></i></button>
+                            <OrderDelete :orderId="order.id"></OrderDelete>
                         </td>
                     </tr>
                     </tbody>
