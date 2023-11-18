@@ -61,6 +61,8 @@ Route::middleware(['web'])->group(function () {
         Route::get('export', [ErrorController::class, 'export'])->name('export');
 
         Route::resource('feed', FeedController::class);
+        Route::get('/last-visited', [FeedController::class, 'lastVisited'])->name('lastVisited');
+
         Route::resource('comment', CommentController::class);
 
         Route::post('/import', [EquipmentService::class, 'import'])->name('import');

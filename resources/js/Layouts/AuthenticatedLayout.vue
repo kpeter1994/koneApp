@@ -8,6 +8,7 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
 import MapComponent from "@/Components/map/MapComponent.vue";
 import FileForm from "@/Components/form/FileForm.vue";
+import NoteComponent from "@/Components/notification/NoteComponent.vue";
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -33,10 +34,6 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink class="relative" :href="route('dashboard')" :active="route().current('dashboard')">
                                     <i class="fa-solid fa-rss opacity-75 mr-1.5"></i>
                                     Hírfolyam
-                                    <span class="absolute top-3 right-0 flex h-2 w-2">
-                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                                        <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
-                                    </span>
                                 </NavLink>
                                 <NavLink :href="route('equipment.index')" :active="route().current('equipment.index')">
                                     <i class="fa-solid fa-elevator opacity-75 mr-1.5"></i>
@@ -55,6 +52,7 @@ const showingNavigationDropdown = ref(false);
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
                             <!-- Settings Dropdown -->
+                            <NoteComponent></NoteComponent>
                             <div class="ml-3 relative">
                                 <Dropdown align="right" width="48">
                                     <template #trigger>

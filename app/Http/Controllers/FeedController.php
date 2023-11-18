@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Feed;
+use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
+use Carbon\Carbon;
 
 class FeedController extends Controller
 {
@@ -17,7 +19,9 @@ class FeedController extends Controller
         // Az alap lekérdezés, amely minden feedet visszaad.
         $query = Feed::with('creator','comments.creator')->orderBy('created_at', 'desc');
 
-
+        $userId = $user->id;
+        $lastVisitKey = 'last_visit_' . $userId;
+        Cache::put($lastVisitKey, Carbon::now(), 60 * 60 * 360);
 
         // Ha a system=false paraméter jelen van és igaz, akkor ne jelenítse meg a type=system elemeket.
         if ($request->input('system') === 'false') {
@@ -25,6 +29,8 @@ class FeedController extends Controller
         }
 
         $feeds = $query->limit(1000)->get();
+
+
 
         return Inertia::render('Feed/Index', compact('feeds', 'user'));
     }
@@ -88,5 +94,22 @@ class FeedController extends Controller
         $feed->message = nl2br($message);
         $feed->type = $type;
         $feed->save();
+    }
+
+    public function lastVisited(){
+        $user = auth()->user();
+        $userId = $user->id;
+        $lastVisitKey = 'last_visit_' . $userId;
+
+        $lastVisit = Cache::get($lastVisitKey);
+
+        $feeds = Feed::where('created_at', '>', $lastVisit)->get();
+
+        return response()->json([
+            'feeds' => $feeds,
+            'lastVisit' => date('Y-m-d H:i:s', strtotime($lastVisit)),
+            'lastVisitKey' => $lastVisitKey,
+            'lastVisitCount' => count($feeds),
+        ]);
     }
 }
