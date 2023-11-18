@@ -15,7 +15,7 @@ class FeedController extends Controller
     {
         $user = auth()->user();
         // Az alap lekérdezés, amely minden feedet visszaad.
-        $query = Feed::with('creator','comments')->orderBy('created_at', 'desc');
+        $query = Feed::with('creator','comments.creator')->orderBy('created_at', 'desc');
 
 
 

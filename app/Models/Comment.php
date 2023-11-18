@@ -24,7 +24,7 @@ class Comment extends Model
         return $this->belongsTo(Feed::class);
     }
 
-    public function user()
+    public function creator()
     {
         return $this->belongsTo(User::class);
     }

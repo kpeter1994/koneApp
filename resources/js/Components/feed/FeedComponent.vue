@@ -34,12 +34,12 @@ const props = defineProps({
             v-for="comment in props.feed.comments"
             class="flex w-full gap-1.5">
            <div class="w-10 h-10 bg-gray-900 rounded-full flex justify-center items-center">
-               <span class="text-white">{{formater.getMonogram(props.feed.creator.name)}}</span>
+               <span class="text-white">{{formater.getMonogram(comment.creator.name)}}</span>
            </div>
            <div class="bg-slate-100 p-3 rounded-2xl w-full">
                <div class="flex flex-col gap-1.5">
-                       <span class="font-semibold text-sm">{{props.feed.creator.name}}</span>
-                       <p>{{comment.message}}</p>
+                       <span class="font-semibold text-sm">{{comment.creator.name}}</span>
+                       <p v-html="comment.message"></p>
                        <span class="text-gray-500 text-sm"><i class="fa-solid fa-clock opacity-75 mr-1.5"></i>{{formater.formatDate(comment.created_at)}}</span>
                </div>
            </div>
