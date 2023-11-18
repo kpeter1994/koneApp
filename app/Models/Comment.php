@@ -5,27 +5,27 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Feed extends Model
+class Comment extends Model
 {
     use HasFactory;
 
-    protected $table = 'feeds';
+    protected $table = 'comments';
 
     protected $primaryKey = 'id';
 
     protected $fillable = [
         'creator_id',
-        'message',
-        'type'
+        'feed_id',
+        'message'
     ];
 
-    public function creator()
+    public function feed()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Feed::class);
     }
 
-    public function comments()
+    public function user()
     {
-        return $this->hasMany(Comment::class);
+        return $this->belongsTo(User::class);
     }
 }

@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('feed_comments', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-
-            $table->string('name');
             $table->unsignedBigInteger('creator_id');
+            $table->unsignedBigInteger('feed_id');
 
-            $table->foreign('feed_id')->references('id')->on('feeds')->onDelete('cascade');
             $table->foreign('creator_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('feed_id')->references('id')->on('feeds')->onDelete('cascade');
+            $table->text('message');
+
+
         });
     }
 
@@ -28,8 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('feed_comments', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('comments');
     }
 };

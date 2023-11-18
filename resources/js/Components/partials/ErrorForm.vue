@@ -111,7 +111,11 @@ onMounted(() => {
                         {{ props.selectedEquipment.comment}}
                     </p>
                 </div>
-                <span class="font-semibold text-gray-900"><span class="text-gray-500">partner neve: </span>{{ props.selectedEquipment.name}}</span>
+                <div class="flex gap-3">
+                    <span class="font-semibold text-gray-900"><span class="text-gray-500">partner neve: </span>{{ props.selectedEquipment.name}}</span>
+                    <span v-if="props.selectedEquipment.emi" class="font-semibold text-gray-900"><span class="text-gray-500">emi: </span>{{ props.selectedEquipment.emi}}</span>
+                    <span v-if="props.selectedEquipment.equipment" class="font-semibold text-gray-900"><span class="text-gray-500">equipment: </span>{{ props.selectedEquipment.equipment}}</span>
+                </div>
                 <span class="font-semibold text-gray-900"><span class="text-gray-500">belépési cím: </span>{{ props.selectedEquipment.address}}</span>
                 <div class="flex gap-3">
                     <span @click="selectWorker(props.selectedEquipment.worker)" class="font-semibold text-gray-900 hover:text-gray-600 cursor-pointer"><span class="text-gray-500">karbantartó: </span>{{ props.selectedEquipment.worker}}</span>

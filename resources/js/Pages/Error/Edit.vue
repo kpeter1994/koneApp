@@ -48,6 +48,7 @@ const deleteError = () => {
                                         {{ props.error.comment}}
                                     </p>
                                 </div>
+                                <span v-if="props.error.equipment.emi" class="font-semibold text-gray-900"><span class="text-gray-500">emi: </span>{{ props.error.equipment.emi}}</span>
                                 <span class="font-semibold text-gray-900"><span class="text-gray-500">partner neve: </span>{{ props.error.equipment.name}}</span>
                                 <span class="font-semibold text-gray-900"><span class="text-gray-500">belépési cím: </span>{{ props.error.equipment.address}}</span>
                                 <div class="flex gap-3">

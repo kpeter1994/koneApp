@@ -35,7 +35,7 @@ onClickOutside(target, close)
         <div class="py-6 px-3">
             <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
                 <div class="p-3 bg-white rounded-2xl">
-                    <input @click="createVisible = true" placeholder="Bejegyzés létrehozása" class="w-full rounded-full bg-gray-200 border-transparent" type="text">
+                    <input @click="createVisible = true" placeholder="Bejegyzés létrehozása" class="w-full rounded-full bg-slate-200 border-transparent" type="text">
                 </div>
 
                  <FeedComponent v-for="feed in props.feeds"  :feed="feed"></FeedComponent>

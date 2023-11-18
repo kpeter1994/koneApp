@@ -5,6 +5,7 @@ import {ref, watch} from "vue";
 import ErrorForm from "@/Components/partials/ErrorForm.vue";
 import {onClickOutside} from "@vueuse/core";
 import FileForm from "@/Components/form/FileForm.vue";
+import InfiniteScrollComponent from "@/Components/partials/InfiniteScrollComponent.vue";
 
 
 const props = defineProps({
@@ -109,40 +110,40 @@ watch(search, value => {
                         </thead>
                         <tbody>
                         <tr v-for="equipment in props.equipments" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <th scope="row" class="p-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ equipment.contract_ref }}
                             </th>
-                            <td class="px-6 py-4">
+                            <td class="p-3">
                                 {{ equipment.name }}
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="p-3">
                                 {{ equipment.address }}
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="p-3">
                                 {{ equipment.type }}
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="p-3">
                                 {{ equipment.equipment }}
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="p-3">
                                 {{ equipment.emi }}
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="p-3">
                                 {{ equipment.worker }}
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="p-3">
                                 {{ equipment.supervisor }}
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="p-3">
                                 {{ equipment.rated_load }}
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="p-3">
                                 {{ equipment.comment }}
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="p-3">
                                 {{ equipment.inventory_number }}
                             </td>
-                            <td class="px-6 py-4 text-right">
+                            <td class="p-3 text-right">
                                <button
                                    @click="handleClicked(equipment)"
                                    class="font-medium text-yellow-500 dark:text-blue-500 hover:underline flex items-center whitespace-nowrap">
@@ -151,7 +152,53 @@ watch(search, value => {
                                </button>
                             </td>
                         </tr>
-
+                        <InfiniteScrollComponent :data="props.equipments">
+                            <template v-slot:default="{item}">
+                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ item.contract_ref }}
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        {{ item.name }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ item.address }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ item.type }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ item.equipment }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ item.emi }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ item.worker }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ item.supervisor }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ item.rated_load }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ item.comment }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ data.inventory_number }}
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <button
+                                            @click="handleClicked(data)"
+                                            class="font-medium text-yellow-500 dark:text-blue-500 hover:underline flex items-center whitespace-nowrap">
+                                            <i class="fa-solid fa-wrench mr-1.5 opacity-75"></i>
+                                            Hiba bejelentés
+                                        </button>
+                                    </td>
+                                </tr>
+                            </template>
+                        </InfiniteScrollComponent>
                         </tbody>
                     </table>
 

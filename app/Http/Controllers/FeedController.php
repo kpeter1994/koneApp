@@ -15,7 +15,7 @@ class FeedController extends Controller
     {
         $user = auth()->user();
         // Az alap lekérdezés, amely minden feedet visszaad.
-        $query = Feed::with('creator')->orderBy('created_at', 'desc');
+        $query = Feed::with('creator','comments')->orderBy('created_at', 'desc');
 
 
 
@@ -24,7 +24,7 @@ class FeedController extends Controller
             $query->where('type', '!=', 'system');
         }
 
-        $feeds = $query->limit(20)->get();
+        $feeds = $query->limit(1000)->get();
 
         return Inertia::render('Feed/Index', compact('feeds', 'user'));
     }

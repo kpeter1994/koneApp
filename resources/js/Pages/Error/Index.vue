@@ -4,6 +4,7 @@ import {Head,} from '@inertiajs/vue3';
 import {formatDate, formatTime} from "@/utils.js";
 import {defineProps, ref} from "vue";
 import axios from "axios";
+import InfiniteScrollComponent from "@/Components/partials/InfiniteScrollComponent.vue";
 
 
 const props = defineProps({
@@ -69,60 +70,60 @@ const getContract = (contract) => {
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                         <table class="w-full text-sm text-left text-gray-700 dark:text-gray-200">
                             <thead
-                                class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                                class="text-xs text-gray-700 bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col" class="p-1.5">
+                                <th scope="col" class="p-1.5 w-[50px]">
                                     Hibajegy száma
                                 </th>
-                                <th scope="col" class="p-1.5">
+                                <th scope="col" class="p-1.5 w-[50px]">
                                     Dátum
                                 </th>
-                                <th scope="col" class="p-1.5">
+                                <th scope="col" class="p-1.5 w-[50px]">
                                     Bejelentés Időpontja
                                 </th>
-                                <th scope="col" class="p-1.5">
+                                <th scope="col" class="p-1.5 w-[50px]">
                                     Szerződés szám
                                 </th>
-                                <th scope="col" class="p-1.5 whitespace-nowrap">
+                                <th scope="col" class="p-1.5 w-[50px]">
                                     Partner neve
                                 </th>
-                                <th scope="col" class="p-1.5 whitespace-nowrap">
+                                <th scope="col" class="p-1.5 w-[50px]">
                                     Beépítési cím
                                 </th>
-                                <th scope="col" class="p-1.5">
+                                <th scope="col" class="p-1.5 w-[50px]">
                                     Berendezés típusa
                                 </th>
-                                <th scope="col" class="p-1.5">
+                                <th scope="col" class="p-1.5 w-[50px]">
                                     Equipment
                                 </th>
-                                <th scope="col" class="p-1.5">
+                                <th scope="col" class="p-1.5 w-[50px]">
                                     ÉMI szám
                                 </th>
-                                <th scope="col" class="p-1.5">
+                                <th scope="col" class="p-1.5 w-[50px]">
                                     Karbantartó
                                 </th>
-                                <th scope="col" class="p-1.5">
+                                <th scope="col" class="p-1.5 w-[50px]">
                                     Hiba elhárító karbantartó
                                 </th>
-                                <th scope="col" class="p-1.5">
+                                <th scope="col" class="p-1.5 w-[100px]">
                                     Hibajelenség leírása (Bejelentő)
                                 </th>
-                                <th scope="col" class="p-1.5">
+                                <th scope="col" class="p-1.5 w-[50px]">
                                     Hiba típusa
                                 </th>
-                                <th scope="col" class="p-1.5">
+                                <th scope="col" class="p-1.5 w-[50px]">
                                     Áll-e a lift?
                                 </th>
-                                <th scope="col" class="p-1.5">
+                                <th scope="col" class="p-1.5 w-[50px]">
                                     Hány sérült van?
                                 </th>
-                                <th scope="col" class="p-1.5">
+                                <th scope="col" class="p-1.5 w-[50px]">
                                     Diszpécser neve
                                 </th>
-                                <th scope="col" class="p-1.5">
+                                <th scope="col" class="p-1.5 w-[50px]">
                                     Bejelentő
                                 </th>
-                                <th scope="col" class="p-1.5">
+                                <th scope="col" class="p-1.5 w-[50px]">
                                     Bejelentő telefonszáma
                                 </th>
                                 <th scope="col" class="p-1.5">
@@ -207,6 +208,81 @@ const getContract = (contract) => {
                                     </a>
                                 </td>
                             </tr>
+
+                            <InfiniteScrollComponent :data="props.errors">
+                                <template v-slot:default="{item}">
+                                    <tr :class="item.troubleshooter && item.troubleshooter.includes('kiadandó') ? 'bg-yellow-200 dark:bg-red-700' : 'bg-white dark:bg-gray-800'"
+                                        class="border-b dark:bg-gray-800 dark:border-gray-700">
+                                        <td class="p-1.5 text-center">
+                                            {{ item.error_number }}
+                                        </td>
+                                        <td class="p-1.5 text-center">
+                                            {{ formatDate(item.created_at) }}
+                                        </td>
+                                        <td class="p-1.5 text-center">
+                                            {{ formatTime(item.created_at) }}
+                                        </td>
+                                        <td class="p-1.5 text-center">
+                                            {{ item.contract_ref }}
+                                        </td>
+                                        <td class="p-1.5 text-center">
+                                            {{ item.name }}
+                                        </td>
+                                        <td class="p-1.5 text-center min-w-64">
+                                            {{ item.address }}
+                                        </td>
+                                        <td class="p-1.5 text-center">
+                                            {{ item.type }}
+                                        </td>
+                                        <td class="p-1.5 text-center">
+                                            {{ item.equipment }}
+                                        </td>
+                                        <td class="p-1.5 text-center whitespace-nowrap">
+                                            {{ item.emi }}
+                                        </td>
+                                        <td class="p-1.5 text-center">
+                                            {{ item.worker }}
+                                        </td>
+                                        <td class="p-1.5 text-center cursor-pointer text-blue-500" @click="getContract(item.troubleshooter)">
+                                            {{ item.troubleshooter }}
+                                        </td>
+                                        <td class="p-1.5 text-center">
+                                            {{ item.description }}
+                                        </td>
+                                        <td class="p-1.5 text-center">
+                                            {{ item.error_type }}
+                                        </td>
+                                        <td class="p-1.5 text-center">
+                                            {{ item.isStand }}
+                                        </td>
+                                        <td class="p-1.5 text-center">
+                                            {{ item.injured }}
+                                        </td>
+                                        <td class="p-1.5 text-center">
+                                            {{ item.dispatcher }}
+                                        </td>
+                                        <td class="p-1.5 text-center">
+                                            {{ item.whistleblower }}
+                                        </td>
+                                        <td class="p-1.5 text-center">
+                                            {{ item.whistleblower_tel }}
+                                        </td>
+                                        <td class="p-1.5 text-center">
+                                            {{ item.comment }}
+                                        </td>
+
+
+                                        <td class="px-6 py-4 text-right">
+                                            <a
+                                                :href="route('error.edit', item.id)"
+                                                class="font-medium text-blue-500 dark:text-blue-500 flex items-center whitespace-nowrap">
+                                                <i class="fa-solid fa-pen mr-1.5 text-center opacity-75"></i>
+                                                Szerkesztés
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </InfiniteScrollComponent>
 
                             </tbody>
                         </table>

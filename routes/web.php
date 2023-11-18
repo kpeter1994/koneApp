@@ -11,6 +11,7 @@ use App\Http\Controllers\ErrorController;
 use Illuminate\Session\Middleware\StartSession;
 use App\Http\Controllers\FeedController;
 use App\Services\EquipmentService;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +61,7 @@ Route::middleware(['web'])->group(function () {
         Route::get('export', [ErrorController::class, 'export'])->name('export');
 
         Route::resource('feed', FeedController::class);
+        Route::resource('comment', CommentController::class);
 
         Route::post('/import', [EquipmentService::class, 'import'])->name('import');
     });
