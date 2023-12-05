@@ -2,7 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head,} from '@inertiajs/vue3';
 import {formatDate, formatTime} from "@/utils.js";
-import {defineProps, ref} from "vue";
+import {defineProps, ref, watch} from "vue";
 import axios from "axios";
 import InfiniteScrollComponent from "@/Components/partials/InfiniteScrollComponent.vue";
 
@@ -11,6 +11,7 @@ const props = defineProps({
     errors: Object,
     flash: Object
 });
+const filtered = ref(false);
 
 const contractTel = ref(null);
 const contractName = ref('Kattints a karbantartóra a telefonszámért!');
@@ -29,6 +30,7 @@ const getContract = (contract) => {
 }
 
 
+
 </script>
 
 <template>
@@ -44,28 +46,35 @@ const getContract = (contract) => {
         <div class="py-6">
             <div class=" mx-auto sm:px-6 lg:px-8">
                 <div class="dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg ">
-                    <div class="relative">
-                        <div v-if="props.flash.success && showMessages" class="absolute bg-green-100 p-3 gap-6 flex rounded items-center">
-                            <p><i class="fa-solid fa-circle-info mr-1.5"></i>{{props.flash.success}}</p>
-                            <i @click="showMessages = false" class="fa-solid fa-xmark cursor-pointer"></i>
+                    <div class="flex justify-between items-center">
+                        <div class="p-1">
+                            <input @click="!filtered" type="checkbox" id="filtered" name="filtered" v-model="filtered" class="mr-2 cursor-pointer">
+                            <label for="filtered">Csak kiadandó</label>
                         </div>
-                        <div class="flex justify-end items-center mb-3 text-green-900">
+                        <div class="relative">
+                            <div v-if="props.flash.success && showMessages" class="absolute bg-green-100 p-3 gap-6 flex rounded items-center">
+                                <p><i class="fa-solid fa-circle-info mr-1.5"></i>{{props.flash.success}}</p>
+                                <i @click="showMessages = false" class="fa-solid fa-xmark cursor-pointer"></i>
+                            </div>
+                            <div class="flex justify-end items-center mb-3 text-green-900">
 
 
-                            <div class="p-3 bg-blue-100 mr-3 rounded ">
-                                {{contractName}}
-                                <span class="font-semibold">
+                                <div class="p-3 bg-blue-100 mr-3 rounded ">
+                                    {{contractName}}
+                                    <span class="font-semibold">
                                     {{contractTel}}
                                 </span>
-                            </div>
-                            <div class="relative flex items-center">
-                                <i class="fa-solid fa-magnifying-glass absolute ml-3 pointer-events-none z-30"></i>
-                                <input
-                                    class="rounded-lg pl-8"
-                                    type="text"
-                                    v-model="search">
+                                </div>
+                                <div class="relative flex items-center">
+                                    <i class="fa-solid fa-magnifying-glass absolute ml-3 pointer-events-none z-30"></i>
+                                    <input
+                                        class="rounded-lg pl-8"
+                                        type="text"
+                                        v-model="search">
+                                </div>
                             </div>
                         </div>
+
                     </div>
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                         <table class="w-full text-sm text-left text-gray-700 dark:text-gray-200">

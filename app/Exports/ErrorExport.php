@@ -24,7 +24,7 @@ class ErrorExport implements FromCollection, WithHeadings, WithMapping, WithStyl
     */
     public function collection()
     {
-        return Error::orderBy('created_at', 'asc')->get();
+        return Error::orderBy('created_at', 'asc')->limit(100)->get();
     }
 
     public function headings(): array

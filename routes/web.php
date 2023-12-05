@@ -13,6 +13,8 @@ use App\Http\Controllers\FeedController;
 use App\Services\EquipmentService;
 use App\Http\Controllers\CommentController;
 
+use App\Mail\TestEmail;
+use Illuminate\Support\Facades\Mail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,6 +36,7 @@ Route::middleware(['web'])->group(function () {
         ]);
     });
 
+
     Route::get('/dashboard', [FeedController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
     Route::middleware('auth')->group(function () {
@@ -50,6 +53,7 @@ Route::middleware(['web'])->group(function () {
 //        Route::get('/work-order', [WorkOrderController::class, 'index'])->name('order.index');
 
 //        Route::delete('/order/{order}', [WorkOrderController::class, 'destroy'])->name('order.destroy');
+
 
         Route::resource('order',WorkOrderController::class);
 
