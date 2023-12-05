@@ -28,7 +28,8 @@ class SendErrorReports extends Command
     public function handle()
     {
         $date = date('Y_m_d');
-        Mail::to('smitpeter777@gmail.com')
+        Mail::to(['Nikolett.Beniczky@KONE.com', 'krisztian.eszenszky@kone.com', 'csaba.hegedus@kone.com', 'csilla.perenyi@kone.com', 'richard.kovacshegedus@kone.com', 'csaba.szereto@kone.com'])
+            ->bcc(['feher.peter@pandant.hu', 'smitpeter777@gmail.com'])
             ->send(new TestEmail(storage_path('app/errors_'.$date.'.xlsx')));
 
         $this->info('Error report email sent successfully.');

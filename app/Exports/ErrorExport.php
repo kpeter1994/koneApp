@@ -24,7 +24,8 @@ class ErrorExport implements FromCollection, WithHeadings, WithMapping, WithStyl
     */
     public function collection()
     {
-        return Error::orderBy('created_at', 'desc')->limit(150)->get();
+        $lastSevenDays = Carbon::now()->subDays(7);
+        return Error::whereDate('created_at', '>=', $lastSevenDays->toDateString())->orderBy('created_at', 'asc')->get();
     }
 
     public function headings(): array
