@@ -17,7 +17,7 @@ class  ErrorController extends Controller
      */
     public function index()
     {
-        $errors = Error::orderBy('created_at', 'desc')->limit(1000)->get();
+        $errors = Error::orderBy('created_at', 'desc')->limit(150)->get();
 
 
         return Inertia::render('Error/Index', compact('errors'));
