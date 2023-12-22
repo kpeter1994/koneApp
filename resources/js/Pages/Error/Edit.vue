@@ -3,10 +3,12 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head, useForm} from '@inertiajs/vue3';
 import InputLabel from "@/Components/form/InputLabel.vue";
 import TextInput from "@/Components/form/TextInput.vue";
+import ToastComponent from "@/Components/notification/ToastComponent.vue";
 
 
 const props = defineProps({
-    error: Object
+    error: Object,
+    flash: Object,
 });
 
 const form = useForm({
@@ -33,6 +35,10 @@ const deleteError = () => {
     <Head title="Dashboard" />
 
     <AuthenticatedLayout>
+
+        <template #toast>
+            <ToastComponent :flash="props.flash"></ToastComponent>
+        </template>
         <template #header>
             <h2 class="font-semibold text-yellow-500 text-xl  dark:text-gray-200 leading-tight"><i class="fa-solid fa-toolbox mr-1.5"></i>Hibabejenetések</h2>
         </template>

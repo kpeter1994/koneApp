@@ -15,12 +15,39 @@ class  ErrorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $errors = Error::orderBy('created_at', 'desc')->limit(150)->get();
+        $search = $request->query('search');
+        $toBeIssued = $request->query('toBeIssued');
+        $searchTerms = explode(' ', $search);
 
+        $errorsQuery = Error::query();
 
-        return Inertia::render('Error/Index', compact('errors'));
+        foreach ($searchTerms as $term) {
+            $errorsQuery->where(function ($query) use ($term) {
+                $query->where('error_number', 'LIKE', "%{$term}%")
+                    ->orWhere('name', 'LIKE', "%{$term}%")
+                    ->orWhere('address', 'LIKE', "%{$term}%")
+                    ->orWhere('equipment', 'LIKE', "%{$term}%")
+                    ->orWhere('emi', 'LIKE', "%{$term}%")
+                    ->orWhere('worker', 'LIKE', "%{$term}%")
+                    ->orWhere('description', 'LIKE', "%{$term}%")
+                    ->orWhere('error_type', 'LIKE', "%{$term}%")
+                    ->orWhere('troubleshooter', 'LIKE', "%{$term}%")
+                    ->orWhere('injured', 'LIKE', "%{$term}%")
+                    ->orWhere('whistleblower', 'LIKE', "%{$term}%")
+                    ->orWhere('whistleblower_tel', 'LIKE', "%{$term}%")
+                    ->orWhere('comment', 'LIKE', "%{$term}%");
+            });
+        }
+
+        $errors = $errorsQuery->orderBy('created_at', 'desc')->limit(150)->get();
+
+        if ($toBeIssued == 1) {
+            $errors = $errorsQuery->where('troubleshooter', 'LIKE', 'kiadandó')->orderBy('created_at', 'desc')->limit(150)->get();
+        }
+
+        return Inertia::render('Error/Index', compact('errors','search', 'toBeIssued'));
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Models\Feed;
 use Illuminate\Support\Facades\Cache;
@@ -104,12 +105,15 @@ class FeedController extends Controller
         $lastVisit = Cache::get($lastVisitKey);
 
         $feeds = Feed::where('created_at', '>', $lastVisit)->get();
+        $comments = Comment::where('created_at', '>', $lastVisit)->get();
+
+        $allActivities = count($feeds) + count($comments);
 
         return response()->json([
             'feeds' => $feeds,
             'lastVisit' => date('Y-m-d H:i:s', strtotime($lastVisit)),
             'lastVisitKey' => $lastVisitKey,
-            'lastVisitCount' => count($feeds),
+            'lastVisitCount' => $allActivities,
         ]);
     }
 }
