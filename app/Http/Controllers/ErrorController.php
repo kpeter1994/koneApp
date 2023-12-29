@@ -44,7 +44,7 @@ class  ErrorController extends Controller
         $errors = $errorsQuery->orderBy('created_at', 'desc')->limit(150)->get();
 
         if ($toBeIssued == 1) {
-            $errors = $errorsQuery->where('troubleshooter', 'LIKE', 'kiadandó')->orderBy('created_at', 'desc')->limit(150)->get();
+            $errors = $errorsQuery->where('troubleshooter', 'LIKE', '%kiadandó%')->orderBy('created_at', 'desc')->limit(150)->get();
         }
 
         return Inertia::render('Error/Index', compact('errors','search', 'toBeIssued'));

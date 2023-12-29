@@ -42,6 +42,21 @@ export class formater {
         return `${year}-${month}-${day}`;
     }
 
+    static removeAccents(str) {
+        const accentsMap = {
+            'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ö': 'o', 'ő': 'o', 'ú': 'u', 'ü': 'u', 'ű': 'u',
+            'Á': 'A', 'É': 'E', 'Í': 'I', 'Ó': 'O', 'Ö': 'O', 'Ő': 'O', 'Ú': 'U', 'Ü': 'U', 'Ű': 'U'
+            // További ékezetes karakterek és párjaik
+        };
+
+        return str.split('').map(char => accentsMap[char] || char).join('');
+
+    }
+
+    static formatURL(title){
+        return this.removeAccents(title.toLowerCase().replace(/ /g, '-'));
+    }
+
     static formatDateNormal(date) {
         const d = new Date(date)
 

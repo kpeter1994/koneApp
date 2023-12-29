@@ -52,6 +52,15 @@ const showingNavigationDropdown = ref(false);
                                     <i class="fa-solid fa-user-gear opacity-75 mr-1.5"></i>
                                     Karbantartók
                                 </NavLink>
+                              <NavLink :href="route('posts.index')" :active="route().current('report')">
+                                  <i class="fa-solid fa-book-open opacity-75 mr-1.5"></i>
+                                Tudástár
+                              </NavLink>
+<!--                              <NavLink :href="route('report')" :active="route().current('report')">-->
+<!--                                  <i class="fa-solid fa-chart-bar opacity-75 mr-1.5"></i>-->
+<!--                                  Statisztikák-->
+<!--                              </NavLink>-->
+
                             </div>
                         </div>
 

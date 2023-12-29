@@ -12,6 +12,8 @@ use Illuminate\Session\Middleware\StartSession;
 use App\Http\Controllers\FeedController;
 use App\Services\EquipmentService;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\PostController;
 
 use App\Mail\TestEmail;
 use Illuminate\Support\Facades\Mail;
@@ -46,30 +48,31 @@ Route::middleware(['web'])->group(function () {
     });
 
     Route::middleware('auth')->group(function () {
+
         Route::get('/kone-workers', [KoneWorkerController::class, 'index'])->name('workers.index');
+
         Route::get('/kone-worker', [KoneWorkerController::class, 'show'])->name('workers.show');
-
-//        Route::post('/work-order', [WorkOrderController::class, 'store'])->name('order.store');
-//        Route::get('/work-order', [WorkOrderController::class, 'index'])->name('order.index');
-
-//        Route::delete('/order/{order}', [WorkOrderController::class, 'destroy'])->name('order.destroy');
-
 
         Route::resource('order',WorkOrderController::class);
 
         Route::get('/equipment', [EquipmentController::class, 'index'])->name('equipment.index');
-
 
         Route::resource('error', ErrorController::class);
 
         Route::get('export', [ErrorController::class, 'export'])->name('export');
 
         Route::resource('feed', FeedController::class);
+
         Route::get('/last-visited', [FeedController::class, 'lastVisited'])->name('lastVisited');
 
         Route::resource('comment', CommentController::class);
 
         Route::post('/import', [EquipmentService::class, 'import'])->name('import');
+
+        Route::get('/report', [ReportController::class, 'index'])->name('report');
+
+        Route::resource('posts', PostController::class);
+
     });
 
 });
