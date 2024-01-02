@@ -25,6 +25,6 @@ class ImageUploadController extends Controller
 
         $imagePath = Storage::disk('public')->url('images/'.$imageName);
 
-        return response()->json(['imagePath' => $imagePath]);
+        return response()->json(['location' => $imagePath]);
     }
 }

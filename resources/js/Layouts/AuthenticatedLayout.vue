@@ -30,7 +30,7 @@ const showingNavigationDropdown = ref(false);
                             <div class="shrink-0 flex items-center">
                                 <Link :href="route('dashboard')">
                                     <ApplicationLogo
-                                        class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200"
+                                        class="block h-9 w-auto fill-current rounded text-gray-800 dark:text-gray-200"
                                     />
                                 </Link>
                             </div>
@@ -183,9 +183,10 @@ const showingNavigationDropdown = ref(false);
             </header>
 
             <!-- Page Content -->
-            <main>
-                <slot />
-            </main>
+                <main>
+                    <slot />
+                </main>
         </div>
     </div>
 </template>
+

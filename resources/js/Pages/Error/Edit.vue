@@ -43,6 +43,7 @@ const deleteError = () => {
             <h2 class="font-semibold text-yellow-500 text-xl  dark:text-gray-200 leading-tight"><i class="fa-solid fa-toolbox mr-1.5"></i>Hibabejenetések</h2>
         </template>
 
+        <Transition name="slide-up" appear>
         <div class="py-6 ">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
                     <div class="relative overflow-x-auto  sm:rounded-lg mx-auto">
@@ -122,7 +123,9 @@ const deleteError = () => {
 
                 </div>
         </div>
-
+        </Transition>
 
     </AuthenticatedLayout>
 </template>
+
+

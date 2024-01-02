@@ -32,7 +32,8 @@ onClickOutside(target, close)
         </template>
 
 
-        <div class="py-6 px-3">
+        <Transition name="slide-up" appear>
+            <div class="py-6 px-3">
             <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
                 <div class="p-3 bg-white rounded-2xl">
                     <input @click="createVisible = true" placeholder="Bejegyzés létrehozása" class="w-full rounded-full bg-slate-200 border-transparent" type="text">
@@ -43,6 +44,7 @@ onClickOutside(target, close)
 
             </div>
         </div>
+       </Transition>
 
         <div v-if="createVisible" class="fixed top-0 left-0 bg-gray-900 w-full h-screen z-40 flex justify-center items-center bg-opacity-25 backdrop-blur p-3">
             <CreateFeedComponent :user="props.user" @close="close" ref="target"></CreateFeedComponent>

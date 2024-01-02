@@ -34,7 +34,7 @@ class PostController extends Controller
             'title' => 'required',
             'slug' => 'required|unique:posts',
             'body' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'max:2048',
         ];
 
         $validatedData = $request->validate($rules);
@@ -44,6 +44,8 @@ class PostController extends Controller
             'slug' => $validatedData['slug'],
             'body' => $validatedData['body'],
             'user_id' => auth()->user()->id,
+            'image' => $validatedData['image'],
+
             // Ha az 'image' mezőt is menteni szeretnéd, azt is hozzá kell adnod itt
         ]);
 
@@ -54,9 +56,11 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $slug)
     {
-        //
+        $post = Post::with('user')->where('slug', $slug)->firstOrFail();
+
+        return Inertia::render('Posts/Show', compact('post'));
     }
 
     /**
@@ -64,7 +68,9 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        return Inertia::render('Posts/Edit', compact('post'));
     }
 
     /**
@@ -72,7 +78,25 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        $rules = [
+            'title' => 'required',
+            'slug' => 'required|unique:posts,slug,'.$post->id,
+            'body' => 'required',
+            'image' => 'max:2048',
+        ];
+
+        $validatedData = $request->validate($rules);
+
+        $post->update([
+            'title' => $validatedData['title'],
+            'slug' => $validatedData['slug'],
+            'body' => $validatedData['body'],
+            'image' => $validatedData['image'],
+        ]);
+
+        return redirect()->route('posts.index')->with('success', 'A poszt sikeresen frissítve!');
     }
 
     /**
@@ -80,6 +104,9 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->delete();
+
+        return redirect()->route('posts.index')->with('success', 'A poszt sikeresen törölve!');
     }
 }

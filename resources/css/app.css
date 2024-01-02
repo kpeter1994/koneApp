@@ -7,3 +7,20 @@
 
 
 /*@import "~leaflet/dist/leaflet.css";*/
+
+.slide-up-enter-active {
+    animation: slide-up .3s ease-out;
+}
+.slide-up-leave-active {
+    animation: slide-up .3s reverse;
+}
+@keyframes slide-up {
+    from {
+        transform: translateY(16px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

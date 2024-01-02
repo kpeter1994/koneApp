@@ -49,7 +49,8 @@ watch(search, value => {
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight"><i class="fa-solid fa-elevator mr-1.5"></i>Berendezések</h2>
         </template>
 
-        <div class="py-6">
+        <Transition name="slide-up" appear>
+            <div class="py-6">
             <div class="mx-auto px-3 ">
                 <div class="dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div>
@@ -204,6 +205,7 @@ watch(search, value => {
                 </div>
             </div>
         </div>
+        </Transition>
 
        <div  v-if="formVisited" class="fixed top-0 bg-gray-800 bg-opacity-25 w-full h-screen flex justify-center items-center backdrop-blur-sm z-30">
             <ErrorForm :orders="props.orders" :selectedEquipment="selectedEquipment" ref="target"></ErrorForm>

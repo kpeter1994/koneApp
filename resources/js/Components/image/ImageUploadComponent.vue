@@ -16,12 +16,33 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 
+const emit = defineEmits(['image-uploaded'])
+
 const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview);
 
 const myFiles = ref([]);
 
+
+
 const handleFilePondInit = () => {
     console.log('FilePond has initialized');
+};
+
+const handleProcessFile = (error, file) => {
+    if (error) {
+        console.error('Hiba történt a fájl feldolgozása közben', error);
+        return;
+    }
+    // Feldolgozzuk a választ, hogy kinyerjük az elérési utat
+    try {
+        const response = JSON.parse(file.serverId);
+        const imagePath = response.location;
+         console.log('Feltöltött fájl elérési útja:', imagePath);
+
+        emit('image-uploaded', imagePath)
+    } catch (e) {
+        console.error('Hiba történt a válasz feldolgozása közben', e);
+    }
 };
 
 </script>
@@ -36,7 +57,9 @@ const handleFilePondInit = () => {
         accepted-file-types="image/jpeg, image/png, image/gif, image/webp"
         server="/api/upload"
         v-bind:files="myFiles"
-        v-on:init="handleFilePondInit"/>
+        v-on:init="handleFilePondInit"
+        v-on:processfile="handleProcessFile"
+    />
 
 </template>
 
