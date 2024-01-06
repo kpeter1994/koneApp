@@ -9,6 +9,7 @@ use App\Models\Error;
 use App\Models\Feed;
 use App\Exports\ErrorExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\WorkOrder;
 
 class  ErrorController extends Controller
 {
@@ -123,7 +124,15 @@ class  ErrorController extends Controller
     public function edit(Error $error)
     {
         $error->load('equipment');
-        return Inertia::render('Error/Edit', compact('error'));
+
+        $now = Carbon::now();
+
+        $orders = WorkOrder::with('worker')
+            ->where('start_status', '<=', $now)
+            ->where('end_status', '>', $now)
+            ->get();
+
+        return Inertia::render('Error/Edit', compact('error', 'orders'));
     }
 
     /**

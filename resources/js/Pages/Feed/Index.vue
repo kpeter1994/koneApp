@@ -1,11 +1,12 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import {Head, router} from '@inertiajs/vue3';
 import FeedComponent from "@/Components/feed/FeedComponent.vue";
 import CreateFeedComponent from "@/Components/feed/CreateFeedComponent.vue";
 import {ref} from "vue";
-import {onClickOutside, } from "@vueuse/core";
-
+import {onClickOutside} from "@vueuse/core";
+import {useIntersectionObserver} from "@vueuse/core";
+import axios from "axios";
 
 
 const props = defineProps({
@@ -13,14 +14,18 @@ const props = defineProps({
     feeds: Object
 })
 
-
-
 const createVisible = ref(false)
 const target = ref(null)
+
 
 const close = () => createVisible.value = false
 
 onClickOutside(target, close)
+
+
+
+
+
 </script>
 
 <template>
@@ -38,10 +43,7 @@ onClickOutside(target, close)
                 <div class="p-3 bg-white rounded-2xl">
                     <input @click="createVisible = true" placeholder="Bejegyzés létrehozása" class="w-full rounded-full bg-slate-200 border-transparent" type="text">
                 </div>
-
-                 <FeedComponent v-for="feed in props.feeds"  :feed="feed"></FeedComponent>
-
-
+                 <FeedComponent v-for="feed in props.feeds" :feed="feed"></FeedComponent>
             </div>
         </div>
        </Transition>

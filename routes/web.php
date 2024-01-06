@@ -17,6 +17,7 @@ use App\Http\Controllers\PostController;
 
 use App\Mail\TestEmail;
 use Illuminate\Support\Facades\Mail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,8 +40,6 @@ Route::middleware(['web'])->group(function () {
     });
 
 
-    Route::get('/dashboard', [FeedController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
-
     Route::middleware('auth')->group(function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -49,33 +48,41 @@ Route::middleware(['web'])->group(function () {
 
     Route::middleware('auth')->group(function () {
 
-        Route::get('/kone-workers', [KoneWorkerController::class, 'index'])->name('workers.index');
+        Route::middleware('check.kone')->group(function () {
+            Route::get('/dashboard', [FeedController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-        Route::get('/kone-worker', [KoneWorkerController::class, 'show'])->name('workers.show');
+            Route::get('/kone-workers', [KoneWorkerController::class, 'index'])->name('workers.index');
 
-        Route::resource('order',WorkOrderController::class);
+            Route::get('/kone-worker', [KoneWorkerController::class, 'show'])->name('workers.show');
 
-        Route::get('/equipment', [EquipmentController::class, 'index'])->name('equipment.index');
+            Route::resource('order', WorkOrderController::class);
 
-        Route::resource('error', ErrorController::class);
+            Route::get('/equipment', [EquipmentController::class, 'index'])->name('equipment.index');
 
-        Route::get('export', [ErrorController::class, 'export'])->name('export');
+            Route::resource('error', ErrorController::class);
 
-        Route::resource('feed', FeedController::class);
+            Route::get('export', [ErrorController::class, 'export'])->name('export');
 
-        Route::get('/last-visited', [FeedController::class, 'lastVisited'])->name('lastVisited');
+            Route::resource('feed', FeedController::class);
 
-        Route::resource('comment', CommentController::class);
+            Route::get('/last-visited', [FeedController::class, 'lastVisited'])->name('lastVisited');
 
-        Route::post('/import', [EquipmentService::class, 'import'])->name('import');
+            Route::resource('comment', CommentController::class);
 
-        Route::get('/report', [ReportController::class, 'index'])->name('report');
+            Route::post('/import', [EquipmentService::class, 'import'])->name('import');
 
-        Route::resource('posts', PostController::class);
+            Route::get('/report', [ReportController::class, 'index'])->name('report');
+        });
 
     });
 
 });
+
+
+Route::middleware('check.pandant')->group(function () {
+    Route::resource('posts', PostController::class);
+});
+
 
 //Test view
 Route::get('/test', [\App\Services\MapService::class, 'test']);

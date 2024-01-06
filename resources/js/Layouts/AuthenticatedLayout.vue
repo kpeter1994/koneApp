@@ -10,6 +10,7 @@ import MapComponent from "@/Components/map/MapComponent.vue";
 import FileForm from "@/Components/form/FileForm.vue";
 import NoteComponent from "@/Components/notification/NoteComponent.vue";
 import ToastComponent from "@/Components/notification/ToastComponent.vue";
+import NavComponent from "@/Components/partials/NavComponent.vue";
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -25,44 +26,7 @@ const showingNavigationDropdown = ref(false);
                 <!-- Primary Navigation Menu -->
                 <div class="mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
-                        <div class="flex">
-                            <!-- Logo -->
-                            <div class="shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
-                                    <ApplicationLogo
-                                        class="block h-9 w-auto fill-current rounded text-gray-800 dark:text-gray-200"
-                                    />
-                                </Link>
-                            </div>
-                            <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink class="relative" :href="route('dashboard')" :active="route().current('dashboard')">
-                                    <i class="fa-solid fa-rss opacity-75 mr-1.5"></i>
-                                    Hírfolyam
-                                </NavLink>
-                                <NavLink :href="route('equipment.index')" :active="route().current('equipment.index')">
-                                    <i class="fa-solid fa-elevator opacity-75 mr-1.5"></i>
-                                    Berendezések
-                                </NavLink>
-                                <NavLink :href="route('error.index')" :active="route().current('error.index')">
-                                    <i class="fa-solid fa-toolbox opacity-75 mr-1.5"></i>
-                                    Hibabejenetések
-                                </NavLink>
-                                <NavLink :href="route('workers.index')" :active="route().current('workers.index')">
-                                    <i class="fa-solid fa-user-gear opacity-75 mr-1.5"></i>
-                                    Karbantartók
-                                </NavLink>
-                              <NavLink :href="route('posts.index')" :active="route().current('report')">
-                                  <i class="fa-solid fa-book-open opacity-75 mr-1.5"></i>
-                                Tudástár
-                              </NavLink>
-<!--                              <NavLink :href="route('report')" :active="route().current('report')">-->
-<!--                                  <i class="fa-solid fa-chart-bar opacity-75 mr-1.5"></i>-->
-<!--                                  Statisztikák-->
-<!--                              </NavLink>-->
-
-                            </div>
-                        </div>
+                        <NavComponent></NavComponent>
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
                             <!-- Settings Dropdown -->
@@ -166,11 +130,12 @@ const showingNavigationDropdown = ref(false);
                 </div>
             </nav>
 
+<!--            todo orange nav-->
             <!-- Page Heading -->
             <header class="bg-white dark:bg-gray-800 shadow" v-if="$slots.header">
                 <div class="max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
                     <slot name="header" />
-                    <div class="flex gap-3">
+                    <div v-if="$page.props.auth.user.status === 1 || $page.props.auth.user.status > 2" class="flex gap-3">
                         <FileForm></FileForm>
                         <a class="py-1 px-2 bg-green-100 rounded font-semibold" :href="route('export')">
                             <i class="fa-solid fa-file-excel"></i>

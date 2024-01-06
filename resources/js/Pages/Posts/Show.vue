@@ -1,6 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head} from '@inertiajs/vue3';
+import NativeLink from "@/Components/NativeLink.vue";
 
 
 const props = defineProps({
@@ -20,21 +21,24 @@ const props = defineProps({
         </template>
 
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight"><i
-                class="fa-solid fa-book-open opacity-75 mr-1.5"></i><a :href="route('posts.index')">Tudástár</a><i class="fa-solid fa-angle-right text-sm mx-3"></i><span class="text-sm text-gray-500">Bejegyzés</span></h2>
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                <NativeLink class="text-blue-500 hover:text-blue-600 underline" :href="route('posts.index')"><i
+                    class="fa-solid fa-book-open opacity-75 mr-1.5"></i>Tudástár
+                </NativeLink>
+                <i class="fa-solid fa-angle-right text-sm mx-3"></i><span class="text-sm text-gray-500">Bejegyzés</span>
+            </h2>
         </template>
 
         <Transition name="slide-up" appear>
-            <div class="py-6 px-3">
-            <div id="post" class="max-w-4xl mx-auto">
-                <h1 class="text-xl mb-6 font-semibold">{{ props.post.title }}</h1>
-                <div v-html="props.post.body">
+            <div class="py-6 px-3 relative">
+                <div id="post" class="max-w-4xl mx-auto">
+                    <h1 class="text-xl mb-6 font-semibold">{{ props.post.title }}</h1>
+                    <div v-html="props.post.body">
 
+                    </div>
                 </div>
             </div>
 
-
-        </div>
         </Transition>
 
 

@@ -6,6 +6,7 @@ import {defineProps, onMounted, ref, watch} from "vue";
 import axios from "axios";
 import InfiniteScrollComponent from "@/Components/partials/InfiniteScrollComponent.vue";
 import ToastComponent from "@/Components/notification/ToastComponent.vue";
+import NativeLink from "@/Components/NativeLink.vue";
 
 
 const props = defineProps({
@@ -241,12 +242,10 @@ const getClassForItem = (item) => {
 
 
                                     <td class="px-6 py-4 text-right">
-                                        <a
-                                            :href="route('error.edit', error.id)"
-                                            class="font-medium text-blue-500 dark:text-blue-500 flex items-center whitespace-nowrap">
+                                        <NativeLink :href="route('error.edit', error.id)" class="font-medium text-blue-500 dark:text-blue-500 flex items-center whitespace-nowrap">
                                             <i class="fa-solid fa-pen mr-1.5 text-center opacity-75"></i>
                                             Szerkesztés
-                                        </a>
+                                        </NativeLink>
                                     </td>
                                 </tr>
 

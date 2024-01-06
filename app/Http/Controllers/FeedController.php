@@ -29,8 +29,7 @@ class FeedController extends Controller
             $query->where('type', '!=', 'system');
         }
 
-        $feeds = $query->limit(1000)->get();
-
+        $feeds = $query->limit(100)->get();
 
 
         return Inertia::render('Feed/Index', compact('feeds', 'user'));

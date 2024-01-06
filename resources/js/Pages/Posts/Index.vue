@@ -54,11 +54,14 @@ onClickOutside(target, close)
 
                     <div class="lg:w-1/4 p-3" v-for="post in props.posts" :key="post.id">
                         <div class="bg-slate-100 rounded-2xl shadow hover:shadow-xl transition-all border border-slate-200">
-                            <div class="aspect-[5/4] overflow-hidden rounded-2xl">
-                                <img :src="post.image" alt="" class="w-full h-full object-cover">
-                            </div>
+                            <NativeLink :href="route('posts.show',post.slug)">
+                                <div class="aspect-[5/4] overflow-hidden rounded-2xl">
+                                    <img :src="post.image" alt="" class="w-full h-full object-cover">
+                                </div>
+                            </NativeLink>
+
                             <div class="p-6">
-                                <a class="text-blue-500 font-semibold hover:text-blue-600" :href="route('posts.show',post.slug)">{{post.title}}</a>
+                                <NativeLink class="text-blue-500 font-semibold hover:text-blue-600" :href="route('posts.show',post.slug)">{{post.title}}</NativeLink>
 
                                 <div class="flex justify-between mt-3 text-sm">
                                     <span class="text-gray-500">{{formater.formatDate(post.created_at)}}</span>
