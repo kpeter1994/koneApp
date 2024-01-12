@@ -34,7 +34,7 @@ class WorkOrderController extends Controller
                 $dateKey = $start->format('Y-m-d');
 
                 // Ellenőrzi, hogy az end_status nagyobb-e, mint 08:00 az adott napon
-                if ($end->gt(Carbon::parse($dateKey . ' 08:00'))) {
+                if ($end->gt(Carbon::parse($dateKey . ' 08:01'))) {
                     if (!$groupedOrders->has($dateKey)) {
                         $groupedOrders[$dateKey] = collect();
                     }
