@@ -80,6 +80,8 @@ watch(() => form.status, (newStatus) => {
                             <option value="Délelötti ügyeletes">Délelötti ügyeletes</option>
                             <option value="Délutáni ügyeletes">Délutáni ügyeletes</option>
                             <option value="Mozgólépcső ügyeletes">Mozgólépcső ügyeletes</option>
+                            <option value="Épülettechnika ügyeletes">Épülettechnika ügyeletes</option>
+                            <option value="Debrecen">Debrecen és környéke ügyeletes</option>
                             <option value="Szabadságon">Szabadságon</option>
                             <option value="Külön munka">Külön munka</option>
                         </select>

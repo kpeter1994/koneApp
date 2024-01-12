@@ -11,6 +11,7 @@ import FileForm from "@/Components/form/FileForm.vue";
 import NoteComponent from "@/Components/notification/NoteComponent.vue";
 import ToastComponent from "@/Components/notification/ToastComponent.vue";
 import NavComponent from "@/Components/partials/NavComponent.vue";
+import ChatBotComponent from "@/Components/partials/ChatBotComponent.vue";
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -151,6 +152,7 @@ const showingNavigationDropdown = ref(false);
                 <main>
                     <slot />
                 </main>
+            <ChatBotComponent v-if="$page.props.auth.user.status !== 1"></ChatBotComponent>
         </div>
     </div>
 </template>

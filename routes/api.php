@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\ImageUploadController;
+use App\Http\Controllers\Api\ChatbotController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,4 +26,7 @@ Route::get('/error-by-workers', [ErrorController::class, 'getCurrentErrorsGroupB
 Route::get('/gallery', [ImageUploadController::class, 'index'])->name('gallery');
 
 Route::post('/upload', [ImageUploadController::class, 'store'])->name('upload');
+
+Route::post('/send-message', [ChatbotController::class, 'sendMessage']);
+
 
