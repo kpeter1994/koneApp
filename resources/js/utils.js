@@ -41,6 +41,53 @@ export class formater {
 
         return `${year}-${month}-${day}`;
     }
+    static formatDateNormal(date) {
+        const d = new Date(date)
+
+        const ev = d.getFullYear();
+        const ho = (d.getMonth() + 1).toString().padStart(2, '0'); // A hónapok 0-tól indexeltek, ezért +1, majd két karakter hosszúságúvá alakítjuk
+        const nap = d.getDate().toString().padStart(2, '0');
+
+
+        const ora = d.getHours().toString().padStart(2, '0'); // Az órát két karakter hosszúvá alakítjuk
+        const perc = d.getMinutes().toString().padStart(2, '0'); // A percet két karakter hosszúvá alakítjuk
+
+        return `${ev}.${ho}.${nap} ${ora}:${perc}`;
+    }
+
+    static getDayName(date) {
+        const d = new Date(date)
+        const day = d.getDay();
+        const dayName = ['Vasárnap', 'Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek','Szombat'];
+        return dayName[day];
+    }
+
+   static getActualMountName(){
+        const d = new Date()
+        const month = d.getMonth();
+        const monthName = ['Január', 'Február', 'Március', 'Április', 'Május', 'Junius','Július','Augusztus','Szeptember','Október','November','December'];
+        return monthName[month];
+   }
+
+    static isToday(dateString) {
+        const today = new Date();
+        const formattedDateString = dateString.replace(/\./g, '-'); // Cserélje le a pontokat kötőjelekre
+        const inputDate = new Date(formattedDateString);
+
+        return inputDate.getDate() === today.getDate() &&
+            inputDate.getMonth() === today.getMonth() &&
+            inputDate.getFullYear() === today.getFullYear();
+    }
+
+    static getDate(date) {
+        const d = new Date(date)
+
+        const ev = d.getFullYear();
+        const ho = (d.getMonth() + 1).toString().padStart(2, '0'); // A hónapok 0-tól indexeltek, ezért +1, majd két karakter hosszúságúvá alakítjuk
+        const nap = d.getDate().toString().padStart(2, '0');
+
+        return `${ev}.${ho}.${nap}`;
+    }
 
     static removeAccents(str) {
         const accentsMap = {
@@ -55,20 +102,6 @@ export class formater {
 
     static formatURL(title){
         return this.removeAccents(title.toLowerCase().replace(/ /g, '-'));
-    }
-
-    static formatDateNormal(date) {
-        const d = new Date(date)
-
-        const ev = d.getFullYear();
-        const ho = (d.getMonth() + 1).toString().padStart(2, '0'); // A hónapok 0-tól indexeltek, ezért +1, majd két karakter hosszúságúvá alakítjuk
-        const nap = d.getDate().toString().padStart(2, '0');
-
-
-        const ora = d.getHours().toString().padStart(2, '0'); // Az órát két karakter hosszúvá alakítjuk
-        const perc = d.getMinutes().toString().padStart(2, '0'); // A percet két karakter hosszúvá alakítjuk
-
-        return `${ev}.${ho}.${nap} ${ora}:${perc}`;
     }
 
     static getMonogram(name) {

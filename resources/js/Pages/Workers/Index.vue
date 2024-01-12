@@ -27,8 +27,6 @@ const close = () => formVisited.value = false
 onClickOutside(target, close)
 
 
-
-
 </script>
 
 <template>

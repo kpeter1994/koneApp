@@ -152,7 +152,7 @@ const showingNavigationDropdown = ref(false);
                 <main>
                     <slot />
                 </main>
-            <ChatBotComponent></ChatBotComponent>
+            <ChatBotComponent v-if="$page.props.auth.user.status !== 1"></ChatBotComponent>
         </div>
     </div>
 </template>

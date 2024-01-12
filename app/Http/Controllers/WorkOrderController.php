@@ -15,10 +15,37 @@ class WorkOrderController extends Controller
     public function index()
     {
         $now = Carbon::now();
-        $orders = WorkOrder::with('worker')->where('end_status', '>', $now)->get();
+        $sevenDaysBefore = $now->copy()->subDays(7);
+        $sevenDaysAfter = $now->copy()->addDays(7);
 
-        return Inertia::render('WorkOrder/Index', compact('orders'));
+        $orders = WorkOrder::with('worker')
+            ->where('end_status', '>', $sevenDaysBefore)
+            ->where('end_status', '<', $sevenDaysAfter)
+            ->orderBy('start_status', 'asc')
+            ->get();
+
+        $groupedOrders = collect();
+
+        foreach ($orders as $order) {
+            $start = Carbon::parse($order->start_status);
+            $end = Carbon::parse($order->end_status);
+
+            while ($start->lte($end)) {
+                $dateKey = $start->format('Y-m-d');
+                if (!$groupedOrders->has($dateKey)) {
+                    $groupedOrders[$dateKey] = collect();
+                }
+
+                $groupedOrders[$dateKey]->push($order);
+
+                $start->addDay();
+            }
+        }
+
+        return Inertia::render('WorkOrder/Index', ['orders' => $groupedOrders]);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
