@@ -32,11 +32,15 @@ class WorkOrderController extends Controller
 
             while ($start->lte($end)) {
                 $dateKey = $start->format('Y-m-d');
-                if (!$groupedOrders->has($dateKey)) {
-                    $groupedOrders[$dateKey] = collect();
-                }
 
-                $groupedOrders[$dateKey]->push($order);
+                // Ellenőrzi, hogy az end_status nagyobb-e, mint 08:00 az adott napon
+                if ($end->gt(Carbon::parse($dateKey . ' 08:00'))) {
+                    if (!$groupedOrders->has($dateKey)) {
+                        $groupedOrders[$dateKey] = collect();
+                    }
+
+                    $groupedOrders[$dateKey]->push($order);
+                }
 
                 $start->addDay();
             }
@@ -44,6 +48,7 @@ class WorkOrderController extends Controller
 
         return Inertia::render('WorkOrder/Index', ['orders' => $groupedOrders]);
     }
+
 
 
 
