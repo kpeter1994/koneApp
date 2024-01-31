@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Equipment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -152,8 +153,9 @@ class  ErrorController extends Controller
         $user = auth()->user();
 
         if($request->error_type === 'feladat'){
+            $equipment = Equipment::findOrFail($request->equipment_id);
             $feed = Feed::create([
-                'message' => 'Új feladat: '.$request->description,
+                'message' => 'Új feladat:<br> Cím: '.$request->name.' - '.$equipment->address.'<br> Leírás: '.$request->description.'<br> Bejelentő: '.$request->whistleblower.'<br> Bejelentő tel: '.$request->whistleblower_tel,
                 'creator_id' => $user->id,
                 'type' => 'task',
             ]);

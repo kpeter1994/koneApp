@@ -83,7 +83,6 @@ class FeedController extends Controller
         $feed = Feed::with('creator','comments.creator')->find($id);
         $feed->type = 'solved_task';
         $feed->save();
-
         return response()->json(['feed' => $feed]);
     }
 
