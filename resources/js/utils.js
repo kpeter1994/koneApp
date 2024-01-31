@@ -62,6 +62,15 @@ export class formater {
         return dayName[day];
     }
 
+    static getToday = (days  = 0) => {
+        const d = new Date();
+        d.setDate(d.getDate() + days);
+        const ev = d.getFullYear();
+        const ho = (d.getMonth() + 1).toString().padStart(2, '0'); // A hónapok 0-tól indexeltek, ezért +1, majd két karakter hosszúságúvá alakítjuk
+        const nap = d.getDate().toString().padStart(2, '0');
+        return `${ev}.${ho}.${nap}`;
+    }
+
    static getActualMountName(){
         const d = new Date()
         const month = d.getMonth();
@@ -126,6 +135,14 @@ export class formater {
             const keresztNev = parts[1] || '';
             return `${extractInitial(vezetekNev)}${extractInitial(keresztNev)}`;
         }
+    }
+
+    static isTwoDateEqual(date1,date2){
+        const d1 = new Date(date1)
+        const d2 = new Date(date2)
+        return d1.getDate() === d2.getDate() &&
+            d1.getMonth() === d2.getMonth() &&
+            d1.getFullYear() === d2.getFullYear();
     }
 
 

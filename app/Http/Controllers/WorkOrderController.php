@@ -19,7 +19,7 @@ class WorkOrderController extends Controller
         $sevenDaysAfter = $now->copy()->addDays(7);
 
         $orders = WorkOrder::with('worker')
-            ->where('end_status', '>', $sevenDaysBefore)
+            ->where('start_status', '>', $sevenDaysBefore)
             ->where('end_status', '<', $sevenDaysAfter)
             ->orderBy('start_status', 'asc')
             ->get();

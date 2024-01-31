@@ -70,6 +70,15 @@ class  ErrorController extends Controller
             $errorNumber = date('mdHi').'_C';
         }
 
+        if($request->error_type === 'feladat'){
+            $feed = Feed::create([
+                'message' => 'Új feladat: '.$request->description,
+                'creator_id' => $user->id,
+                'type' => 'task',
+            ]);
+            $feed->save();
+        }
+
         //dd($user->id);
 
         $error = Error::create([
@@ -140,6 +149,17 @@ class  ErrorController extends Controller
      */
     public function update(Request $request, Error $error)
     {
+        $user = auth()->user();
+
+        if($request->error_type === 'feladat'){
+            $feed = Feed::create([
+                'message' => 'Új feladat: '.$request->description,
+                'creator_id' => $user->id,
+                'type' => 'task',
+            ]);
+            $feed->save();
+        }
+
         $data = $request->only([
             'description',
             'error_type',
@@ -154,7 +174,7 @@ class  ErrorController extends Controller
         $error->fill($data);
         $error->save();
         $feed = new FeedController();
-        $user = auth()->user();
+
 //        $errorMessage = '<strong>Hiba frissítve:</strong> '.$error->dispatcher.'
 //                        <strong>Cím:</strong> '.$error->equipment->name.' - '.$error->equipment->address.'
 //                        <strong>Leírás:</strong> '.$error->description.'

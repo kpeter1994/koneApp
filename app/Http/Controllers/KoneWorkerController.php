@@ -89,5 +89,19 @@ class KoneWorkerController extends Controller
         //
     }
 
+    public function getNotAvailableWorkers() {
+        $notAvailableWorkers = WorkOrder::with('worker')
+            ->where(function ($query) {
+            $query->where('status', 'Szabadságon')
+                ->orWhere('status', 'Külön munka');
+        })
+            ->where('end_status', '>', Carbon::now())
+            ->get();
+
+
+        return response()->json($notAvailableWorkers);
+    }
+
+
 
 }

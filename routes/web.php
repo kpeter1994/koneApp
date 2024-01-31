@@ -65,6 +65,8 @@ Route::middleware(['web'])->group(function () {
 
             Route::resource('feed', FeedController::class);
 
+            Route::patch('feed/{id}/solved', [FeedController::class, 'solvedTask'])->name('feed.solved');
+
             Route::get('/last-visited', [FeedController::class, 'lastVisited'])->name('lastVisited');
 
             Route::resource('comment', CommentController::class);

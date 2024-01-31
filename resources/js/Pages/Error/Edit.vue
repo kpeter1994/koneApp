@@ -141,6 +141,8 @@ onMounted(() => {
                                         <label for="normal">normal</label><br>
                                         <input type="radio" id="beragadas" name="error_type" class="mr-1.5" value="beragadas" v-model="form.error_type">
                                         <label for="beragadas">beragadás</label><br>
+                                        <input type="radio" id="feladat" name="error_type" class="mr-1.5" value="feladat" v-model="form.error_type">
+                                        <label for="feladat">feladat</label><br>
                                     </div>
                                     <div>
                                         <input-label value="Áll-e a lift?"></input-label>

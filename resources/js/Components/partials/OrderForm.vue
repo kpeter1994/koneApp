@@ -4,7 +4,6 @@ import InputLabel from "@/Components/form/InputLabel.vue";
 import InputError from "@/Components/form/InputError.vue";
 import {useForm} from "@inertiajs/vue3";
 import {formater} from "@/utils.js";
-import axios from "axios";
 import {getStatusInitialValue} from "@/utils.js";
 import {onMounted, watch, ref, watchEffect} from "vue";
 import OrderDelete from "@/Components/partials/OrderDelete.vue";
@@ -15,7 +14,10 @@ const props = defineProps({
     orders: Object
 });
 
+const emit = defineEmits(['closeFormEmit'])
+
 const today = new Date(); // Jelenlegi dátum és idő
+
 
 
 const form = useForm({
@@ -25,9 +27,13 @@ const form = useForm({
     end_status: '',
 })
 const ordersOfWorker = ref(null)
+
 ordersOfWorker.value = props.orders.filter(order => order.worker_id === props.worker.id)
 
-
+const handleSubmit = () => {
+    form.post(route('order.store'))
+    emit('closeFormEmit')
+}
 
 onMounted(() => {
     const initialValues = getStatusInitialValue(form.status);
@@ -40,6 +46,10 @@ watch(() => form.status, (newStatus) => {
     const initialValues = getStatusInitialValue(newStatus);
     form.start_status = initialValues.start_status;
     form.end_status = initialValues.end_status;
+})
+
+watchEffect(() => {
+    ordersOfWorker.value = props.orders.filter(order => order.worker_id === props.worker.id)
 })
 
 
@@ -64,7 +74,8 @@ watch(() => form.status, (newStatus) => {
                         <td class="border px-4 py-2">{{formater.formatDateNormal( order.start_status) }}</td>
                         <td class="border px-4 py-2">{{formater.formatDateNormal(order.end_status) }}</td>
                         <td class="border px-4 py-2 text-center">
-                            <OrderDelete :orderId="order.id"></OrderDelete>
+                            <OrderDelete @updateFormVisited="" :orderId="order.id"></OrderDelete>
+<!--                            todo close form or update view-->
                         </td>
                     </tr>
                     </tbody>
@@ -112,7 +123,7 @@ watch(() => form.status, (newStatus) => {
                     <button
                         class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
                         :disabled="form.processing"
-                        type="submit"
+                        @click="handleSubmit"
                     >Rögzít</button>
                 </div>
 

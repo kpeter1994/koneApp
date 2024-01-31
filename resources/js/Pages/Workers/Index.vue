@@ -26,6 +26,9 @@ const close = () => formVisited.value = false
 
 onClickOutside(target, close)
 
+const emitFunction = () => {
+   console.log('clicked')
+}
 
 </script>
 
@@ -58,7 +61,7 @@ onClickOutside(target, close)
         </Transition>
 
         <div  v-if="formVisited" class="top-0 fixed bg bg-gray-800 bg-opacity-25 w-full min-h-screen flex justify-center items-center backdrop-blur-sm z-30">
-            <OrderForm ref="target" :orders="props.ordersWeek" :worker="selectedWorker" ></OrderForm>
+            <OrderForm @closeFormEmit="close" ref="target" :orders="props.ordersWeek" :worker="selectedWorker" ></OrderForm>
         </div>
 
 

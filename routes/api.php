@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\Api\ChatbotController;
+use App\Http\Controllers\KoneWorkerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,4 +30,4 @@ Route::post('/upload', [ImageUploadController::class, 'store'])->name('upload');
 
 Route::post('/send-message', [ChatbotController::class, 'sendMessage']);
 
-
+Route::get('/not-available', [KoneWorkerController::class, 'getNotAvailableWorkers'])->name('notAvailable');

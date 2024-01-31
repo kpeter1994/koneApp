@@ -79,6 +79,14 @@ class FeedController extends Controller
         //
     }
 
+    public function solvedTask(Request $request, string $id){
+        $feed = Feed::with('creator','comments.creator')->find($id);
+        $feed->type = 'solved_task';
+        $feed->save();
+
+        return response()->json(['feed' => $feed]);
+    }
+
     /**
      * Remove the specified resource from storage.
      */

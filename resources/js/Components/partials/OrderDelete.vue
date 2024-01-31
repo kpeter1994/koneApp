@@ -5,11 +5,14 @@ const props = defineProps({
     orderId: String
 });
 
+const emit = defineEmits(['updateFormVisited'])
+
 const form = useForm({})
 
 const submitForm = () => {
     if (confirm('Biztosan törölni szeretnéd?')) {
         form.delete(route('order.destroy', {order: props.orderId}))
+        emit('updateFormVisited', false)
     }
 }
 
