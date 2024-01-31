@@ -144,6 +144,17 @@ export class formater {
             d1.getMonth() === d2.getMonth() &&
             d1.getFullYear() === d2.getFullYear();
     }
+    static isFirstDateBiggerOrEqual(date1,date2){
+        const d1 = new Date(date1)
+        const d2 = new Date(date2)
+        return d1.getTime() >= d2.getTime();
+    }
+
+    static isFirstDateBigger(date1,date2){
+        const d1 = new Date(date1)
+        const d2 = new Date(date2)
+        return d1.getTime() > d2.getTime();
+    }
 
 
 }

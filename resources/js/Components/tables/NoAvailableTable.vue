@@ -38,7 +38,8 @@ onMounted(() => {
 
         <tr class="bg-red-100" v-for="notAvailableWorker in notAvailable">
             <td
-                v-if="notAvailableWorker.status === 'Szabadságon' && formater.isTwoDateEqual(notAvailableWorker.start_status.split(' ')[0], formater.getToday(props.day))"
+                v-if="notAvailableWorker.status === 'Szabadságon'
+                && formater.isFirstDateBigger(notAvailableWorker.end_status.split(' ')[0], formater.getToday(props.day))"
                 class="p-1.5">{{notAvailableWorker.worker.name}}</td>
         </tr>
 
@@ -47,7 +48,9 @@ onMounted(() => {
         </tr>
 
         <tr class="bg-orange-100" v-for="notAvailableWorker in notAvailable">
-            <td v-if="notAvailableWorker.status === 'Külön munka' && formater.isTwoDateEqual(notAvailableWorker.start_status.split(' ')[0], formater.getToday(props.day))" class="p-3">{{notAvailableWorker.worker.name}}</td>
+            <td v-if="notAvailableWorker.status === 'Külön munka'
+            && formater.isFirstDateBigger(notAvailableWorker.end_status.split(' ')[0], formater.getToday(props.day))"
+                class="p-3">{{notAvailableWorker.worker.name}}</td>
         </tr>
 
     </table>
