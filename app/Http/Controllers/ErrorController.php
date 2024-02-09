@@ -73,7 +73,7 @@ class  ErrorController extends Controller
 
         if($request->error_type === 'feladat'){
             $feed = Feed::create([
-                'message' => 'Új feladat: '.$request->description,
+                'message' => 'Új feladat:<br> Cím: '.$request->name.' - '.$request->address.'<br> Leírás: '.$request->description.'<br> Bejelentő: '.$request->whistleblower.'<br> Bejelentő tel: '.$request->whistleblower_tel,
                 'creator_id' => $user->id,
                 'type' => 'task',
             ]);
@@ -153,7 +153,8 @@ class  ErrorController extends Controller
         $user = auth()->user();
 
         if($request->error_type === 'feladat'){
-            $equipment = Equipment::findOrFail($request->equipment_id);
+            $equipment = Error::with('equipment')->find($request->equipment_id);
+
             $feed = Feed::create([
                 'message' => 'Új feladat:<br> Cím: '.$request->name.' - '.$equipment->address.'<br> Leírás: '.$request->description.'<br> Bejelentő: '.$request->whistleblower.'<br> Bejelentő tel: '.$request->whistleblower_tel,
                 'creator_id' => $user->id,

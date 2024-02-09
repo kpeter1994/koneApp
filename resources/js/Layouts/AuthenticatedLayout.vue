@@ -20,7 +20,7 @@ const showingNavigationDropdown = ref(false);
     <div class="relative">
         <div class="absolute w-full p-3 flex justify-end  pointer-events-none">
             <slot name="toast"></slot>
-        </div>
+        </div>v
 
         <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
             <nav class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
@@ -144,7 +144,6 @@ const showingNavigationDropdown = ref(false);
                         </a>
                         <MapComponent />
                     </div>
-
                 </div>
             </header>
 

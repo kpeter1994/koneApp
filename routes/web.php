@@ -14,6 +14,7 @@ use App\Services\EquipmentService;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\FirebaseNotificationController;
 
 use App\Mail\TestEmail;
 use Illuminate\Support\Facades\Mail;
@@ -88,5 +89,8 @@ Route::middleware('check.pandant')->group(function () {
 
 //Test view
 Route::get('/test', [\App\Services\MapService::class, 'test']);
+
+Route::get('fcm', [FirebaseNotificationController::class, 'sendNotification'])->name('fcm');
+
 
 require __DIR__ . '/auth.php';
