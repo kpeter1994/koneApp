@@ -15,7 +15,6 @@ const handleFeedUpdated = (updatedFeed) => {
 }
 
 
-
 </script>
 
 <template>
@@ -60,7 +59,7 @@ const handleFeedUpdated = (updatedFeed) => {
            </div>
        </div>
 
-        <CreateCommentComponent :feed="feed"></CreateCommentComponent>
+        <CreateCommentComponent :feed="feed" @commentCreated="addComment"></CreateCommentComponent>
 
     </div>
 </template>
