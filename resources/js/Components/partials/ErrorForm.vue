@@ -5,6 +5,9 @@ import {useForm} from "@inertiajs/vue3";
 import TextInput from "@/Components/form/TextInput.vue";
 import {watchEffect, ref, onMounted} from 'vue';
 import {isDutyTime} from "@/utils.js";
+import AutoComplateInput from "@/Components/autocomplete/AutoComplateInput.vue";
+import AutoComplateText from "@/Components/autocomplete/AutoComplateText.vue";
+import PrimeComponent from "@/Components/autocomplete/PrimeComponent.vue";
 
 
 const props = defineProps({
@@ -150,6 +153,8 @@ onMounted(() => {
                     <textarea v-model="form.description"
                               class="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
                     ></textarea>
+
+                    <AutoComplateText></AutoComplateText>
                 </div>
             </div>
             <div class="flex gap-3">
@@ -178,8 +183,12 @@ onMounted(() => {
                     <text-input v-model="form.injured"></text-input>
                 </div>
                 <div>
-                    <input-label value="Bejelentő neve"></input-label>
-                    <text-input v-model="form.whistleblower"></text-input>
+<!--                    <input-label value="Bejelentő neve"></input-label>-->
+<!--                    <text-input v-model="form.whistleblower"></text-input>-->
+                </div>
+                <div>
+<!--                    <AutoComplateInput v-model="form.whistleblower"></AutoComplateInput>-->
+                   <PrimeComponent v-model="form.whistleblower" route="getWhistleblower"></PrimeComponent>
                 </div>
                 <div>
                     <input-label value="Bejelentő telefonszáma"></input-label>

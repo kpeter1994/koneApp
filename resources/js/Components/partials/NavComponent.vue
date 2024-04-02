@@ -3,6 +3,7 @@
 import {Link} from "@inertiajs/vue3";
 import NavLink from "@/Components/NavLink.vue";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
+import MolLogo from "@/Components/image/MolLogo.vue";
 </script>
 
 <template>
@@ -37,14 +38,14 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
                 <i class="fa-solid fa-book-open opacity-75 mr-1.5"></i>
                 Tudástár
             </NavLink>
-<!--            <NavLink v-if="$page.props.auth.user.status === 100" :href="route('register')" :active="route().current('register')">-->
-<!--                <i class="fa-solid fa-user opacity-75 mr-1.5"></i>-->
-<!--                Regisztráció-->
-<!--            </NavLink>-->
-            <!--                              <NavLink :href="route('report')" :active="route().current('report')">-->
-            <!--                                  <i class="fa-solid fa-chart-bar opacity-75 mr-1.5"></i>-->
-            <!--                                  Statisztikák-->
-            <!--                              </NavLink>-->
+            <NavLink v-if="$page.props.auth.user.status > 1" :href="route('mol.index')" :active="route().current('mol.index')">
+                <MolLogo class="opacity-50 mr-1.5 w-6" />
+                MOL
+            </NavLink>
+            <NavLink v-if="$page.props.auth.user.status > 1" :href="route('fougyelet.index')" :active="route().current('fougyelet.index')">
+                <i class="fa-solid fa-bus opacity-75 mr-1.5"></i>
+                Főügyelet
+            </NavLink>
 
         </div>
     </div>

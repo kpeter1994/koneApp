@@ -1,23 +1,23 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-use App\Http\Controllers\KoneWorkerController;
-use App\Http\Controllers\WorkOrderController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\ErrorController;
-use Illuminate\Session\Middleware\StartSession;
 use App\Http\Controllers\FeedController;
-use App\Services\EquipmentService;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\ReportController;
-use App\Http\Controllers\PostController;
 use App\Http\Controllers\FirebaseNotificationController;
-
-use App\Mail\TestEmail;
-use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\KoneWorkerController;
+use App\Http\Controllers\Mol\MolController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\TagController;
+use App\Http\Controllers\WorkOrderController;
+use App\Services\EquipmentService;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DispatcherController;
+use Inertia\Inertia;
+use App\Http\Controllers\DailyReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,6 +75,11 @@ Route::middleware(['web'])->group(function () {
             Route::post('/import', [EquipmentService::class, 'import'])->name('import');
 
             Route::get('/report', [ReportController::class, 'index'])->name('report');
+
+            Route::resource('tag', TagController::class);
+
+
+
         });
 
     });
@@ -83,8 +88,19 @@ Route::middleware(['web'])->group(function () {
 
 
 Route::middleware('check.pandant')->group(function () {
+
     Route::resource('posts', PostController::class);
+
+    Route::get('/mol', [MolController::class, 'index'])->name('mol.index');
+
+    Route::resource('fougyelet', DispatcherController::class);
+
+    Route::get('/event-report', [DispatcherController::class, 'export'])->name('export.report');
+
+    Route::resource('/daily-report', DailyReportController::class);
+
 });
+
 
 
 //Test view

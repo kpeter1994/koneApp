@@ -7,6 +7,8 @@ use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\KoneWorkerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ErrorListController;
+use App\Http\Controllers\Api\KoneAutocompleteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +34,14 @@ Route::post('/upload', [ImageUploadController::class, 'store'])->name('upload');
 Route::post('/send-message', [ChatbotController::class, 'sendMessage']);
 
 Route::get('/not-available', [KoneWorkerController::class, 'getNotAvailableWorkers'])->name('notAvailable');
+
+Route::get('/mol-error-list', [ErrorListController::class, 'index'])->name('errorList');
+
+Route::post('/search-mol-error', [ErrorListController::class, 'search'])->name('searchError');
+
+//Autocomplete
+
+Route::post('/get-whistleblower', [KoneAutocompleteController::class, 'getWhistleblower'])->name('getWhistleblower');
+
+Route::post('/get-description', [KoneAutocompleteController::class, 'getDescription'])->name('getDescription');
 

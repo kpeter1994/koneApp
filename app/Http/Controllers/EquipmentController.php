@@ -36,6 +36,7 @@ class EquipmentController extends Controller
 
         $equipments = $equipmentsQuery->limit(20)->get();
 
+
         return Inertia::render('Equipment/Index', compact('equipments', 'orders'));
     }
 
