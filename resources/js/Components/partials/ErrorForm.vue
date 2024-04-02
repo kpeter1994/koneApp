@@ -154,7 +154,7 @@ onMounted(() => {
                               class="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
                     ></textarea>
 
-                    <AutoComplateText></AutoComplateText>
+<!--                    <AutoComplateText></AutoComplateText>-->
                 </div>
             </div>
             <div class="flex gap-3">
@@ -188,7 +188,10 @@ onMounted(() => {
                 </div>
                 <div>
 <!--                    <AutoComplateInput v-model="form.whistleblower"></AutoComplateInput>-->
-                   <PrimeComponent v-model="form.whistleblower" route="getWhistleblower"></PrimeComponent>
+<!--                   <PrimeComponent v-model="form.whistleblower" route="getWhistleblower"></PrimeComponent>-->
+
+                    <input-label value="Bejelentő"></input-label>
+                    <text-input v-model="form.whistleblower"></text-input>
                 </div>
                 <div>
                     <input-label value="Bejelentő telefonszáma"></input-label>
