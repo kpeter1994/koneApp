@@ -3,27 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\Exports\EventExport;
+use App\Mail\ReportEmail;
 use App\Models\BusEvent;
+use App\Models\CallCenterReport;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\DailyReport;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\EventEmail;
+
 
 class DispatcherController extends Controller
 {
     public function index()
     {
-        $startOfDay = Carbon::today()->hour(7);
-        $endOfDay = Carbon::tomorrow()->hour(7);
-
-        $events = BusEvent::where('created_at', '>=', $startOfDay)
-            ->where('created_at', '<', $endOfDay)
-            ->get();
         $dalyReport = DailyReport::where('actual', true)->first();
+
+        $events = BusEvent::when($dalyReport, function ($query) use ($dalyReport) {
+            // Ez a blokk csak akkor fut le, ha a $dalyReport nem null
+            return $query->where('daily_report_id', $dalyReport->id);
+        }, function ($query) {
+            // Ez a blokk akkor fut le, ha a $dalyReport null, azaz nincs 'aktual' jelentés
+            return $query->latest()->limit(5);
+        })->get();
 
         return Inertia::render('Dispatcher/Index', compact('events', 'dalyReport'));
     }
+
 
     public function show()
     {
@@ -39,7 +47,7 @@ class DispatcherController extends Controller
     {
         $busEvent = new BusEvent();
 
-        $dailyReport = DailyReport::with('bus_event')->where('actual', true)->first();
+        $dailyReport = DailyReport::with('busEvents')->where('actual', true)->first();
 
         $user = auth()->user();
 
@@ -80,6 +88,83 @@ class DispatcherController extends Controller
     {
         return Excel::download(new EventExport, 'Főügyeleti.xlsx');
     }
+
+    public function sendReport()
+    {
+        $dailyReport = DailyReport::where('actual', true)->first();
+        $events = BusEvent::where('daily_report_id', $dailyReport->id)->get();
+        $callCenterReport = CallCenterReport::with('user')->where('daily_report_id', $dailyReport->id)->get();
+
+        $address = env('DAY_REPORT_ADDRESS');
+
+        $address = explode(',', $address);
+
+        Mail::to($address)->send(new ReportEmail($dailyReport, $events,$callCenterReport));
+
+        $dailyReport->update([
+            'actual' => false
+        ]);
+        $dailyReport->save();
+    }
+
+    public function editEvent($id){
+        $event = BusEvent::find($id);
+        return Inertia::render('Dispatcher/Edit', compact('event'));
+    }
+
+    public function updateEvent(Request $request, $id)
+    {
+        $event = BusEvent::find($id);
+
+        $event->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'time' => $request->time,
+            'location' => $request->location,
+            'reporter' => $request->reporter,
+            'recorder' => $request->recorder,
+            'damage_value' => $request->damage_value
+        ]);
+
+        return redirect()->route('fougyelet.index')->with('success', 'Esemény sikeresen módosítva!');
+    }
+
+    public function deleteEvent($id)
+    {
+        $event = BusEvent::find($id);
+        $event->delete();
+
+        return response()->json(['success' => 'Esemény sikeresen törölve!']);
+    }
+
+    public function sendEvent($id)
+    {
+        $event = BusEvent::find($id);
+
+        $address = null;
+
+        if ($event->location == 'Budapest, Óradna u.5.'){
+            $address = env('BUDAPEST_EVENT');
+        }
+        if ($event->location == 'Budapest, Óbuda BKV garázs'){
+            $address = env('BUDAPEST_EVENT');
+        }
+        if ($event->location == 'Debrecen, Kígyóhagyma u.'){
+            $address = env('DEBRECEN_EVENT');
+        }
+        if ($event->location == 'Kecskemét, Georg Knorr u.'){
+            $address = env('KECSKEMET_EVENT');
+        }
+
+
+        $address = explode(',', $address);
+
+        Mail::to($address)->send(new EventEmail($event));
+
+       return response()->json(['success' => 'Esemény sikeresen elküldve!']);
+    }
+
+
 
 
 }

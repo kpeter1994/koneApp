@@ -62,8 +62,6 @@ class DailyReportController extends Controller
     public function update(Request $request, DailyReport $dailyReport)
     {
         $dailyReport->update([
-            'dispatcher' => $request['dispatcher'],
-            'actual' => $request['actual'],
             'info_error' => $request['info_error'],
             'firewall_attack' => $request['firewall_attack'],
             'd_solo_demand' => $request['d_solo_demand'],

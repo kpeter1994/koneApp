@@ -8,20 +8,21 @@ import { defineProps } from 'vue';
 
 
 const props = defineProps({
-    flash: Object
+    flash: Object,
+    event: Object
 });
 
 const form = useForm({
-    name: '',
-    description: '',
+    name: props.event.name,
+    description: props.event.description,
     time: null,
-    location: '',
-    reporter: '',
-    damage_value: '',
+    location: props.event.location,
+    reporter: props.event.reporter,
+    damage_value: props.event.damage_value,
 });
 
 const submitForm = () => {
-    form.post(route('fougyelet.store'), {
+    form.patch(route('updateEvent', {id: props.event.id}), {
         preserveScroll: true,
         onSuccess: () => {
             form.reset();

@@ -26,6 +26,7 @@
         "firebase": "^10.6.0",
         "fuse.js": "^6.6.2",
         "leaflet": "^1.9.4",
+        "mjml": "^4.15.3",
         "primevue": "^3.49.1",
         "vue-filepond": "^7.0.4",
         "vue-multiselect": "^2.1.8",

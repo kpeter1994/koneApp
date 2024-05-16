@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DispatcherController;
 use Inertia\Inertia;
 use App\Http\Controllers\DailyReportController;
+use App\Http\Controllers\CallCenterReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,7 @@ Route::middleware(['web'])->group(function () {
     Route::middleware('auth')->group(function () {
 
         Route::middleware('check.kone')->group(function () {
+
             Route::get('/dashboard', [FeedController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
             Route::get('/kone-workers', [KoneWorkerController::class, 'index'])->name('workers.index');
@@ -79,10 +81,10 @@ Route::middleware(['web'])->group(function () {
             Route::resource('tag', TagController::class);
 
 
-
         });
 
     });
+
 
 });
 
@@ -95,11 +97,25 @@ Route::middleware('check.pandant')->group(function () {
 
     Route::resource('fougyelet', DispatcherController::class);
 
+    Route::get('/sent-daily-report', [DispatcherController::class, 'sendReport'])->name('sendReport');
+
     Route::get('/event-report', [DispatcherController::class, 'export'])->name('export.report');
+
+    Route::post('/send-event/{id}', [DispatcherController::class, 'sendEvent'])->name('sendEvent');
+
+    Route::get('/edit-event/{id}', [DispatcherController::class, 'editEvent'])->name('editEvent');
+
+    Route::delete('/delete-event/{id}', [DispatcherController::class, 'deleteEvent'])->name('deleteEvent');
+
+    Route::patch('/update-event/{id}', [DispatcherController::class, 'updateEvent'])->name('updateEvent');
 
     Route::resource('/daily-report', DailyReportController::class);
 
+    Route::resource('call-center-report', CallCenterReportController::class);
+
 });
+
+
 
 
 

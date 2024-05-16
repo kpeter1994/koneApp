@@ -5,9 +5,7 @@ import {useForm} from "@inertiajs/vue3";
 import TextInput from "@/Components/form/TextInput.vue";
 import {watchEffect, ref, onMounted} from 'vue';
 import {isDutyTime} from "@/utils.js";
-import AutoComplateInput from "@/Components/autocomplete/AutoComplateInput.vue";
-import AutoComplateText from "@/Components/autocomplete/AutoComplateText.vue";
-import PrimeComponent from "@/Components/autocomplete/PrimeComponent.vue";
+
 
 
 const props = defineProps({

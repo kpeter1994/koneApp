@@ -1,0 +1,148 @@
+<mjml>
+    <mj-body>
+
+        <mj-section background-color="#f0f0f0">
+            <mj-column>
+                <mj-image align="left" width="150px" src="https://itkholding.hu/wp-content/uploads/2021/02/ITK-HOLDONG_LOGO_FEJLEC-e1612822886364.png"></mj-image>
+                <mj-text font-size="14px" align="left" color="#626262">Készítette: Teszt Elek</mj-text>
+
+            </mj-column>
+            <mj-column>
+                <mj-text font-size="18px" align="right" font-weight="bold" color="#626262">Fődiszpécser Napi üzemviteli jelentés</mj-text>
+                    <mj-text font-size="14px" align="right" color="#626262">2024.04.30 07:00-tól <br> 2024.05.01 07:00-ig</mj-text>
+            </mj-column>
+        </mj-section>
+
+        <mj-section background-color="#ffffff">
+            <mj-column>
+                <mj-text color="#525252" font-size="16px" font-weight="bold" font-family="Arial">Események</mj-text>
+            </mj-column>
+        </mj-section>
+        <mj-section background-color="#ffffff">
+            <mj-column width="400px">
+                <mj-text font-size="16px" font-weight="bold" color="#626262">LMG-012 esemény</mj-text>
+                <mj-text color="#525252">Attila utcánál egy személyautó elvitte a bal szélesség jelzőjét. Személyi sérülés nem történt idegen hibás, 20 E Ft.- kár</mj-text>
+                <mj-text padding-bottom="1rem" color="#525252" font-weight="bold" >Kárérték: 50 000 Ft</mj-text>
+            </mj-column>
+            <mj-column width="400px">
+                <mj-text font-size="16px" font-weight="bold" color="#626262">LMG-012 esemény</mj-text>
+                <mj-text color="#525252">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum enim eget magna efficitur, eu semper augue semper. Aliquam erat volutpat. Cras id dui lectus. Vestibulum sed finibus lectus, sit amet suscipit nibh. Proin nec commodo purus.
+                    Sed eget nulla elit. Nulla aliquet mollis faucibus.</mj-text>
+                <mj-text padding-bottom="1rem" color="#525252" font-weight="bold" >Kárérték: 50 000 Ft</mj-text>
+            </mj-column>
+        </mj-section>
+        <mj-raw>
+            <!-- Side image -->
+        </mj-raw>
+        <mj-section background-color="#fafafa">
+            <mj-column>
+                <mj-text color="#626262" font-size="16px" font-weight="bold" font-family="Arial">Kiadott buszok</mj-text>
+                <mj-table>
+                    <tr style="border-bottom: 1px solid #ecedee; text-align: left;">
+                        <th style="padding: 10px 0;">Telephely</th>
+                        <th style="padding: 10px 0;">Busz típus</th>
+                        <th style="padding: 10px 0;">Kért</th>
+                        <th style="padding: 10px 0;">Mi adtunk ki:</th>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ecedee; text-align: left;">
+                        <td style="padding: 10px 0;">Debrecen</td>
+                        <td style="padding: 10px 0;">csuklós</td>
+                        <td style="padding: 10px 0;">50</td>
+                        <td style="padding: 10px 0;">51</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ecedee; text-align: left;">
+                        <td style="padding: 10px 0;">Debrecen</td>
+                        <td style="padding: 10px 0;">csuklós</td>
+                        <td style="padding: 10px 0;">50</td>
+                        <td style="padding: 10px 0;">51</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ecedee; text-align: left;">
+                        <td style="padding: 10px 0;">Debrecen</td>
+                        <td style="padding: 10px 0;">csuklós</td>
+                        <td style="padding: 10px 0;">50</td>
+                        <td style="padding: 10px 0;">51</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ecedee; text-align: left;">
+                        <td style="padding: 10px 0;">Debrecen</td>
+                        <td style="padding: 10px 0;">csuklós</td>
+                        <td style="padding: 10px 0;">50</td>
+                        <td style="padding: 10px 0;">51</td>
+                    </tr>
+
+                </mj-table>
+                <mj-text color="#626262" font-size="16px" font-weight="bold" font-family="Arial">Telephelyre bejelentkeztek</mj-text>
+                <mj-table>
+                    <tr style="border-bottom: 1px solid #ecedee; text-align: left;">
+                        <th style="padding: 10px 0;">Telephely</th>
+                        <th style="padding: 10px 0;">06:00 - 18:00</th>
+                        <th style="padding: 10px 0;">18:00 - 06:00</th>
+                        <th style="padding: 10px 0;">06:00</th>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ecedee; text-align: left;">
+                        <td style="padding: 10px 0;">Debrecen</td>
+                        <td style="padding: 10px 0;">Teszt Elek</td>
+                        <td style="padding: 10px 0;">Kis Éva</td>
+                        <td style="padding: 10px 0;">Nagy Benedek</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ecedee; text-align: left;">
+                        <td style="padding: 10px 0;">Debrecen</td>
+                        <td style="padding: 10px 0;">csuklós</td>
+                        <td style="padding: 10px 0;">50</td>
+                        <td style="padding: 10px 0;">51</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ecedee; text-align: left;">
+                        <td style="padding: 10px 0;">Debrecen</td>
+                        <td style="padding: 10px 0;">csuklós</td>
+                        <td style="padding: 10px 0;">50</td>
+                        <td style="padding: 10px 0;">51</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ecedee; text-align: left;">
+                        <td style="padding: 10px 0;">Debrecen</td>
+                        <td style="padding: 10px 0;">csuklós</td>
+                        <td style="padding: 10px 0;">50</td>
+                        <td style="padding: 10px 0;">51</td>
+                    </tr>
+
+                </mj-table>
+                <mj-text color="#626262" font-size="16px" font-weight="bold" font-family="Arial">Informatikai hibák</mj-text>
+                <mj-table>
+                    <tr style="border-bottom: 1px solid #ecedee; text-align: left;">
+                        <th style="padding: 10px 0;">Esemény</th>
+                        <th style="padding: 10px 0;">Megjegyzés</th>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ecedee; text-align: left;">
+                        <td style="padding: 10px 0;">Informatikai hibák</td>
+                        <td style="padding: 10px 0;">zárt: 0 nyitott: 0</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ecedee; text-align: left;">
+                        <td style="padding: 10px 0;">Tűzfal támadások</td>
+                        <td style="padding: 10px 0;">sikeres: 0 sikertelen: 180</td>
+
+                    </tr>
+
+
+                </mj-table>
+
+                <mj-text color="#626262" font-size="16px" font-weight="bold" font-family="Arial">Call Center jelentés</mj-text>
+                <mj-table>
+                    <tr style="border-bottom: 1px solid #ecedee; text-align: left;">
+                        <th style="padding: 10px 0;">Név</th>
+                        <th style="padding: 10px 0;">Megjegyzés</th>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ecedee; text-align: left;">
+                        <td style="padding: 10px 0;">Teszt Elek</td>
+                        <td style="padding: 10px 0;">A mai napon átlagos mennyiségű hívás érkezett. Saját hívásaim: 37</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ecedee; text-align: left;">
+                        <td style="padding: 10px 0;">Teszt Elek</td>
+                        <td style="padding: 10px 0;">A mai napon átlagos mennyiségű hívás érkezett. Saját hívásaim: 37</td>
+                    </tr>
+
+
+                </mj-table>
+            </mj-column>
+        </mj-section>
+
+    </mj-body>
+
+</mjml>
