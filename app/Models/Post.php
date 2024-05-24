@@ -29,7 +29,13 @@ class Post extends Model
     public function toSearchableArray()
     {
         $array = $this->toArray();
-        // Customize array...
+
+        // Kizárhatod a nagy méretű mezőket
+        unset($array['large_text_field']);
+
+        // Vagy átalakíthatod őket
+        $array['content'] = substr($this->content, 0, 500); // csak az első 500 karakter
+
         return $array;
     }
 
