@@ -11,10 +11,26 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::with('user')->get();
-        return Inertia::render('Posts/Index', compact('posts'));
+
+       $search = null;
+
+       if ($request->query('search')) {
+           $search = $request->query('search')[0];
+       }
+
+
+        // Algolia keresési eredmények lekérése
+        $searchResults = Post::search($search)->get();
+
+        // Az eredmények ID-it lekérjük
+        $postIds = $searchResults->pluck('id')->toArray();
+
+        // Kapcsolódó modellek betöltése Eloquent-tel
+        $posts = Post::whereIn('id', $postIds)->with('user')->get();
+
+        return Inertia::render('Posts/Index', compact('posts','search'));
     }
 
     /**

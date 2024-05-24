@@ -31,6 +31,7 @@ const form = reactive({
     b_articulated_demand: props.dalyReport.b_articulated_demand,
     b_solo_supply: props.dalyReport.b_solo_supply,
     b_articulated_supply: props.dalyReport.b_articulated_supply,
+
     k_solo_demand: props.dalyReport.k_solo_demand,
     k_articulated_demand: props.dalyReport.k_articulated_demand,
     k_sprinter_demand: props.dalyReport.k_sprinter_demand,
@@ -78,8 +79,8 @@ const garages = [
         busType3: 'sprinter',
         soloDemand: 'k_solo_demand',
         articulatedDemand: 'k_articulated_demand',
-        articulatedSupply: 'k_sprinter_demand',
-        sprinterDemand: 'k_articulated_supply',
+        articulatedSupply: 'k_articulated_supply',
+        sprinterDemand: 'k_sprinter_demand',
         soloSupply: 'k_solo_supply',
         sprinterSupply: 'k_sprinter_supply',
         startWorker: 'k_start_worker',

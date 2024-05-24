@@ -279,7 +279,7 @@
                                         style="font-size:0px;padding:10px 25px;padding-bottom:1rem;word-break:break-word;">
                                         <div
                                             style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;font-weight:bold;line-height:1;text-align:left;color:#525252;">
-                                            Kárérték: {{$event->damage_value}} Ft
+                                            Kárérték: {{ number_format($event->damage_value, 0, ',', ' ') }} Ft
                                         </div>
                                     </td>
                                 </tr>

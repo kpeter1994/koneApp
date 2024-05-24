@@ -1,29 +1,38 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
-import {ref} from "vue";
+import {Head, useForm} from '@inertiajs/vue3';
+import {ref, watch} from "vue";
 import {onClickOutside, } from "@vueuse/core";
 import NavLink from "@/Components/NavLink.vue";
 import ToastComponent from "@/Components/notification/ToastComponent.vue";
 import {formater} from "@/utils.js";
 import NativeLink from "@/Components/NativeLink.vue";
 
-
-
 const props = defineProps({
     user: Object,
     posts: Object,
-    flash: Object
+    flash: Object,
+    search: String
 })
-
-
 
 const createVisible = ref(false)
 const target = ref(null)
-
+const form = useForm({})
 const close = () => createVisible.value = false
 
 onClickOutside(target, close)
+
+const search = ref(props.search)
+
+watch([search], (newSearch ) => {
+
+    form.get(route('posts.index', {search: newSearch }), {
+        preserveState: true,
+        replace: true
+    })
+})
+
+
 </script>
 
 <template>
@@ -49,6 +58,10 @@ onClickOutside(target, close)
             </div>
 
             <div class="max-w-7xl mx-auto">
+
+                <div>
+                    <input v-model="search" type="text">
+                </div>
 
                 <div class="flex flex-wrap">
 
