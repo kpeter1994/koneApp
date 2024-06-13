@@ -101,17 +101,12 @@ const addDuty = (duty, array, isResultArray = false, index = 0) => {
                     </div>
 
 
-
                     <div class="w-1/5 flex flex-col gap-3">
                         <NoAvailableTable :day="0"></NoAvailableTable>
                         <NoAvailableTable :day="1"></NoAvailableTable>
                         <NoAvailableTable :day="2"></NoAvailableTable>
                         <NoAvailableTable :day="3"></NoAvailableTable>
                     </div>
-
-
-
-
 
 
                 </div>

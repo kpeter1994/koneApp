@@ -13,24 +13,21 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
+        // Alapértelmezett keresési érték
+        $search = $request->query('search') ? $request->query('search')[0] : null;
 
-       $search = null;
+        // Keresési eredmények Eloquent használatával
+        $query = Post::query();
 
-       if ($request->query('search')) {
-           $search = $request->query('search')[0];
-       }
+        if ($search) {
+            $query->where('title', 'like', "%{$search}%")
+                ->orWhere('body', 'like', "%{$search}%");
+        }
 
+        // Keresési eredmények lekérése kapcsolódó modellekkel együtt
+        $posts = $query->with('user')->get();
 
-        // Algolia keresési eredmények lekérése
-        $searchResults = Post::search($search)->get();
-
-        // Az eredmények ID-it lekérjük
-        $postIds = $searchResults->pluck('id')->toArray();
-
-        // Kapcsolódó modellek betöltése Eloquent-tel
-        $posts = Post::whereIn('id', $postIds)->with('user')->get();
-
-        return Inertia::render('Posts/Index', compact('posts','search'));
+        return Inertia::render('Posts/Index', compact('posts', 'search'));
     }
 
     /**
