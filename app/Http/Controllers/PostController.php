@@ -20,6 +20,8 @@ class PostController extends Controller
         $query = Post::query();
 
         if ($search) {
+
+
             $query->where('title', 'like', "%{$search}%")
                 ->orWhere('body', 'like', "%{$search}%");
         }
@@ -55,7 +57,7 @@ class PostController extends Controller
         Post::create([
             'title' => $validatedData['title'],
             'slug' => $validatedData['slug'],
-            'body' => $validatedData['body'],
+            'body' => html_entity_decode($validatedData['body'], ENT_QUOTES, 'UTF-8'),
             'user_id' => auth()->user()->id,
             'image' => $validatedData['image'],
 
@@ -105,7 +107,7 @@ class PostController extends Controller
         $post->update([
             'title' => $validatedData['title'],
             'slug' => $validatedData['slug'],
-            'body' => $validatedData['body'],
+            'body' => html_entity_decode($validatedData['body'], ENT_QUOTES, 'UTF-8'),
             'image' => $validatedData['image'],
         ]);
 
