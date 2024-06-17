@@ -70,7 +70,7 @@ watch([search], (newSearch) => {
 
                         <TransitionGroup name="fade" tag="div" class="flex flex-wrap">
 
-                            <div class="w-full p-6 bg-white rounded-2xl mt-6 flex gap-3 shadow relative" v-for="post in props.posts" :key="post.id">
+                            <div class="w-full px-6 pt-6 pb-12 bg-white rounded-2xl mt-6 flex gap-3 shadow relative" v-for="post in props.posts" :key="post.id">
                                 <div class="w-3/4">
                                     <NativeLink class="text-blue-500 text-lg font-semibold mb-6 hover:text-blue-600"
                                                 :href="route('posts.show',post.slug)">{{ post.title }}

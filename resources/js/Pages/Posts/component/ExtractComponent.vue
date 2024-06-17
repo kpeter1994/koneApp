@@ -6,29 +6,33 @@ const props = defineProps({
     body: String,
 });
 
+function removeAccents(str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
 // Function to highlight the search term and show surrounding characters
 const highlightedBody = computed(() => {
-    const search = props.search;
-    const body = props.body;
+    const search = removeAccents(props.search);
+    const body = removeAccents(props.body);
 
-    if (!search || !body) return body;
+    if (!search || !body) return props.body;
 
     const index = body.toLowerCase().indexOf(search.toLowerCase());
-    if (index === -1) return body; // If search term is not found
+    if (index === -1) return props.body; // If search term is not found
 
     const start = Math.max(0, index - 400);
     const end = Math.min(body.length, index + search.length + 400);
 
-    const before = body.substring(start, index);
-    const match = body.substring(index, index + search.length);
-    const after = body.substring(index + search.length, end);
+    const before = props.body.substring(start, index);
+    const match = props.body.substring(index, index + search.length);
+    const after = props.body.substring(index + search.length, end);
 
     return `${before}<mark>${match}</mark>${after}`;
 });
 </script>
 
 <template>
-    <div v-if="props.search">
+    <div v-if="props.search && props.search.length > 2">
         <div v-html="highlightedBody"></div>
     </div>
 </template>
