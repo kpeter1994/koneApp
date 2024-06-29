@@ -61,18 +61,18 @@ watch([search], (newSearch) => {
 
                 </div>
 
-                <div class="max-w-4xl mx-auto">
+                <div class="container mx-auto">
 
-                    <div class="mt-3">
+                    <div class="mt-3 max-w-lg mx-auto">
                         <input class="w-full rounded" v-model="search" type="text">
                     </div>
 
 
-                        <TransitionGroup name="fade" tag="div" class="flex flex-wrap">
+                        <TransitionGroup name="fade" tag="div" class="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-12">
 
-                            <div class="w-full px-6 pt-6 pb-12 bg-white rounded-2xl mt-6 flex gap-3 shadow relative" v-for="post in props.posts" :key="post.id">
-                                <div class="w-3/4">
-                                    <NativeLink class="text-blue-500 text-lg font-semibold mb-6 hover:text-blue-600"
+                            <div class=" p-6  bg-white rounded-2xl  flex gap-3 shadow relative" v-for="post in props.posts" :key="post.id">
+                                <div :class="search ? 'w-full' : 'w-3/4' ">
+                                    <NativeLink class="text-blue-500 text-2xl font-bold mb-6 hover:text-blue-600"
                                                 :href="route('posts.show',post.slug)">{{ post.title }}
                                     </NativeLink>
 
@@ -80,7 +80,7 @@ watch([search], (newSearch) => {
 
                                 </div>
 
-                                <div class="aspect-[1/1] overflow-hidden rounded-2xl w-1/4" >
+                                <div v-if="!search" class="aspect-[1/1] overflow-hidden rounded-2xl w-1/4" >
                                     <img class="w-full h-full object-cover" :src="post.image" alt="">
                                 </div>
 

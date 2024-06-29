@@ -68,7 +68,7 @@ const addDuty = (duty, array, isResultArray = false, index = 0) => {
                     <div>
                         <table class="rounded-2xl overflow-hidden bg-slate-50 shadow">
                             <tr>
-                                <th class="bg-blue-700 text-white uppercase" colspan="8">{{formater.getActualMountName()}}</th>
+                                <th class="bg-blue-700 text-white uppercase" colspan="9">{{formater.getActualMountName()}}</th>
                             </tr>
                             <tr>
                                 <th rowspan="2" class="p-3 text-center"></th>
@@ -78,6 +78,7 @@ const addDuty = (duty, array, isResultArray = false, index = 0) => {
                                 <th class="p-3 text-center bg-blue-100">Mozgólépcső ügyelet </th>
                                 <th class="p-3 text-center bg-purple-100">Épülettechnika ügyelet</th>
                                 <th class="p-3 text-center bg-purple-200">Debrecen és környéke ügyelet</th>
+                                <th class="p-3 text-center bg-purple-300">Szeged és környéke ügyelet</th>
                             </tr>
                             <tr>
                                 <td class="text-center bg-green-100">1. nappalos</td>
@@ -86,6 +87,7 @@ const addDuty = (duty, array, isResultArray = false, index = 0) => {
                                 <td class="text-center bg-blue-100 "></td>
                                 <td class="text-center bg-purple-100"></td>
                                 <td class="text-center bg-purple-200"></td>
+                                <td class="text-center bg-purple-300"></td>
                             </tr>
                             <tr v-for="(dateArray, index) in props.orders" :key="index" :class="formater.isToday(index) ? 'border border-green-500' : '' ">
                                 <td class="p-3">{{formater.getDate(index)}}</td>
@@ -96,6 +98,7 @@ const addDuty = (duty, array, isResultArray = false, index = 0) => {
                                 <td class="p-3 text-center bg-blue-100">{{addDuty('Mozgólépcső ügyeletes',dateArray)}}</td>
                                 <td class="p-3 text-center bg-purple-100">{{addDuty('Épülettechnika ügyeletes',dateArray)}}</td>
                                 <td class="p-3 text-center bg-purple-200">{{addDuty('Debrecen',dateArray)}}</td>
+                                <td class="p-3 text-center bg-purple-300">{{addDuty('Szeged',dateArray)}}</td>
                             </tr>
                         </table>
                     </div>
