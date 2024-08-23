@@ -72,7 +72,7 @@ const submitForm = () => {
 
                                 <div class="mb-6">
                                     <InputLabel class="mt-3">Bejelentő</InputLabel>
-                                    <TextInput class="w-full" v-model="form.reporter" label="Teszt" placeholder="" />
+                                    <TextInput class="w-full" v-model="form.reporter" label="Teszt" required placeholder="" />
                                 </div>
 
                                 <div class="mb-6">

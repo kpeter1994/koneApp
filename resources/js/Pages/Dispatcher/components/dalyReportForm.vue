@@ -186,7 +186,6 @@ watch(form, () => {
                     <InputLabel>Bejelentő</InputLabel>
                     <AutoComplete class="rounded" v-model="form[garage.endWorker]" dropdown :suggestions="items" @complete="search" />
                 </td>
-
             </tr>
         </table>
 

@@ -7,7 +7,7 @@ import Editor from '@tinymce/tinymce-vue'
 import NativeLink from "@/Components/NativeLink.vue";
 import InputLabel from "@/Components/form/InputLabel.vue";
 import TextInput from "@/Components/form/TextInput.vue";
-import {formater} from "@/utils.js";
+import { formater } from "@/utils.js";
 import ImageUploadComponent from "@/Components/image/ImageUploadComponent.vue";
 import NavLink from "@/Components/NavLink.vue";
 import Multiselect from 'vue-multiselect'
