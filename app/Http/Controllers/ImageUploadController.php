@@ -16,7 +16,7 @@ class ImageUploadController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'file' => 'required|image|max:10048', // Max 2MB
+            'file' => 'required|image|max:11048', // Max 2MB
         ]);
 
         $file = $request->file('file');
