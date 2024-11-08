@@ -127,11 +127,9 @@ const deletePost = () => {
                     <p class="text-red-500" v-if="props.errors.body">{{props.errors.body}}</p>
 
 
-
                 </div>
 
             </div>
-
 
         </div>
 

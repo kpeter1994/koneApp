@@ -46,7 +46,7 @@ import MolLogo from "@/Components/image/MolLogo.vue";
                 <i class="fa-solid fa-bus opacity-75 mr-1.5"></i>
                 Főügyelet
             </NavLink>
-            <NavLink v-if="$page.props.auth.user.status === 2" :href="route('call-center-report.index')" :active="route().current('call-center-report.index')">
+            <NavLink v-if="$page.props.auth.user.status >= 2" :href="route('call-center-report.index')" :active="route().current('call-center-report.index')">
                 <i class="fa-solid fa-phone-volume opacity-75 mr-1.5"></i>
                 Call Center
             </NavLink>
