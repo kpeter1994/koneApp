@@ -15,7 +15,7 @@ const form = useForm({})
 
 const search = ref('')
 
-const emailCC = 'plugee@pandant.hu; info@molplugee.hu; tgajdar@mol.hu; LKohan@mol.hu; IsFile@MOL.hu; vlampert@mol.hu'
+const emailCC = 'plugee@pandant.hu; info@molplugee.hu; LKohan@mol.hu; IsFile@MOL.hu; vlampert@mol.hu'
 
 watch(search, value => {
     form.get(route('mol.index', {search: value}) , {
