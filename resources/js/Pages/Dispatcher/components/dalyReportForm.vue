@@ -11,7 +11,7 @@ const props = defineProps({
     dalyReport: Object
 })
 
-const originalItems = ['Badar Csaba', 'Gábor Tamás', 'Gila József', 'Bence Zsolt', 'Helfrut György', 'Nagy Csaba', 'Nagy Imre', 'Nincs Ügyeletes', 'Ozsváth Tibor', 'Pallás Lajos', 'Sápi Jenő', 'Veres Imre', 'Vida Zoltán', 'Babarczi Balázs', 'Barabás Gy.', 'Grész Csaba', 'Horváth László', 'Hosszú Károly', 'Kovács Csaba', 'Kovács Nóra', 'Martyán Béla', 'Nem jelentkezett be', 'Németh István', 'Barta Attila', 'Bédi János', 'Bognár István', 'Borbély Ferenc', 'Bovier Zsolt', 'Fehér Pál', 'Kuruc Milán', 'Orbán Szabolcs', 'Sikari Dániel', 'Szabó László', 'Szirmai Zsombor', 'Tóth Dániel', 'Tornyi Gábor', 'Török Péter', 'Tuman Károly'];
+const originalItems = ['Badar Csaba', 'Gábor Tamás', 'Kányási László', 'Gila József', 'Bence Zsolt', 'Helfrut György', 'Nagy Csaba', 'Nagy Imre', 'Nincs Ügyeletes', 'Ozsváth Tibor', 'Pallás Lajos', 'Sápi Jenő', 'Veres Imre', 'Vida Zoltán', 'Babarczi Balázs', 'Barabás Gy.', 'Grész Csaba', 'Horváth László', 'Hosszú Károly', 'Kovács Csaba', 'Kovács Nóra', 'Martyán Béla', 'Nem jelentkezett be', 'Németh István', 'Barta Attila', 'Bédi János', 'Bognár István', 'Borbély Ferenc', 'Bovier Zsolt', 'Fehér Pál', 'Kuruc Milán', 'Orbán Szabolcs', 'Sikari Dániel', 'Szabó László', 'Szirmai Zsombor', 'Tóth Dániel', 'Tornyi Gábor', 'Török Péter', 'Tuman Károly'];
 
 const items = ref([...originalItems])
 const search = (event) => {
