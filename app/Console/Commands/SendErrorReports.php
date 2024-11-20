@@ -35,8 +35,8 @@ class SendErrorReports extends Command
 
         while (!$success && $attempts < $maxAttempts) {
             try {
-                Mail::to(['Nikolett.Beniczky@KONE.com', 'krisztian.eszenszky@kone.com', 'csaba.hegedus@kone.com', 'csilla.perenyi@kone.com', 'richard.kovacshegedus@kone.com', 'csaba.szereto@kone.com'])
-                    ->bcc(['feher.peter@pandant.hu', 'smitpeter777@gmail.com'])
+                Mail::to(['tamas.kiss@kone.com','tardos.csizmazia@kone.com','krisztian.eszenszky@kone.com', 'csilla.perenyi@kone.com', 'richard.kovacshegedus@kone.com', 'csaba.szereto@kone.com'])
+                    ->bcc(['feher.peter@pandant.hu'])
                     ->send(new TestEmail(storage_path('app/errors_'.$date.'.xlsx')));
 
                 $success = true;
